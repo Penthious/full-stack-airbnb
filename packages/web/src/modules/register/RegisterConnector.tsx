@@ -3,16 +3,15 @@ import { PureComponent } from "react";
 import RegisterView from "./view/RegisterView";
 
 export class RegisterConnector extends PureComponent {
-  handleSubmit = async (values: any) => {
+  dummySubmit = async (values: {
+    email: string;
+    password: string;
+  }): Promise<any> => {
     console.log(values);
-    return null;
   };
+
   render() {
-    return (
-      <div>
-        <RegisterView submit={this.handleSubmit} />
-      </div>
-    );
+    return <RegisterView submit={this.dummySubmit} />;
   }
 }
 

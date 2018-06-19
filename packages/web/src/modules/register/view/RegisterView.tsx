@@ -2,6 +2,7 @@ import * as React from "react";
 import { Button, Form, Icon, Input } from "antd";
 import { PureComponent } from "react";
 import { withFormik, FormikErrors, FormikValues, FormikProps } from "formik";
+import {} from "@airbnb-clone/server";
 
 interface FormValues {
   email: string;
@@ -12,17 +13,6 @@ interface Props {
   submit: (values: FormValues) => Promise<FormikErrors<FormikValues> | null>;
 }
 
-@withFormik<Props, FormikValues>({
-  mapPropsToValues: () => ({ email: "email", password: "" },
-  handleSubmit: async (values, { setErrors, setSubmitting, props }) => {
-    const errors = await props.submit(values);
-    if (errors) {
-      setErrors(errors);
-    }
-    console.log(values, errors, setSubmitting);
-    return true;
-  },
-})
 export class RegisterView extends PureComponent<
   FormikProps<FormValues> & Props
 > {
@@ -70,4 +60,12 @@ export class RegisterView extends PureComponent<
   }
 }
 
-export default RegisterView;
+export default withFormik<Props, FormValues>({
+  mapPropsToValues: () => ({ email: "", password: "" }),
+  handleSubmit: async (values, { props, setErrors }) => {
+    const errors = await props.submit(values);
+    if (errors) {
+      setErrors(errors);
+    }
+  },
+})(RegisterView);
