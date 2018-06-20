@@ -1,4 +1,3 @@
-import * as yup from "yup";
 import { Inject } from "typescript-ioc";
 
 import UserService from "../../../services/UserService";
@@ -7,10 +6,7 @@ import { createConfirmEmailLink } from "../../../utils/createConfirmEmailLink";
 import { duplicateEmail } from "./errorMessages";
 import { formatYupError } from "../../../utils/formatYupError";
 import { sendEmail } from "../../../utils/sendEmail";
-import {
-  emailValidation,
-  passwordValidation,
-} from "@airbnb-clone/common/validations";
+import { registerUserSchema } from '@airbnb-clone/common'
 
 export default class Register {
   public resolvers: ResolverMap = {
@@ -19,12 +15,7 @@ export default class Register {
     },
   };
 
-  private schema = yup.object().shape({
-    email: emailValidation,
-    password: passwordValidation,
-  });
-
-  constructor(@Inject private userService: UserService) {}
+  constructor(@Inject private userService: UserService) { }
 
   private async register(
     _: any,
@@ -32,7 +23,7 @@ export default class Register {
     { redis, url }: Context,
   ) {
     try {
-      await this.schema.validate(args, { abortEarly: false });
+      await registerUserSchema.validate(args, { abortEarly: false });
     } catch (err) {
       return formatYupError(err);
     }

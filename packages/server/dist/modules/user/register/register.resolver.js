@@ -20,14 +20,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const yup = require("yup");
 const typescript_ioc_1 = require("typescript-ioc");
 const UserService_1 = require("../../../services/UserService");
 const createConfirmEmailLink_1 = require("../../../utils/createConfirmEmailLink");
 const errorMessages_1 = require("./errorMessages");
-const yupSchemas_1 = require("../../../utils/yupSchemas");
 const formatYupError_1 = require("../../../utils/formatYupError");
 const sendEmail_1 = require("../../../utils/sendEmail");
+const common_1 = require("@airbnb-clone/common");
 let Register = class Register {
     constructor(userService) {
         this.userService = userService;
@@ -36,15 +35,11 @@ let Register = class Register {
                 register: (_, args, context) => this.register(_, args, context),
             },
         };
-        this.schema = yup.object().shape({
-            email: yupSchemas_1.emailValidation,
-            password: yupSchemas_1.passwordValidation,
-        });
     }
     register(_, args, { redis, url }) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.schema.validate(args, { abortEarly: false });
+                yield common_1.registerUserSchema.validate(args, { abortEarly: false });
             }
             catch (err) {
                 return formatYupError_1.formatYupError(err);

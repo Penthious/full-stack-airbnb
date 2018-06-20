@@ -2,6 +2,14 @@
   "name": "@airbnb-clone/server",
   "version": "1.0.0",
   "description": "Awesome project developed with TypeORM.",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "cross-env NODE_ENV=develop nodemon --exec ts-node src/index.ts",
+    "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles --verbose --forceExit",
+    "build": "rimraf ./dist && tsc",
+    "gen-schema-types": "ts-node -r dotenv/config src/scripts/createTypes.ts"
+  },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.1",
     "@types/body-parser": "^1.17.0",
@@ -23,6 +31,7 @@
     "@types/sparkpost": "^2.1.4",
     "@types/uuid": "^3.4.3",
     "@types/winston": "^2.3.9",
+    "@types/ws": "^5.1.2",
     "@types/yup": "^0.24.6",
     "gql2ts": "^1.8.0",
     "jest": "^23.1.0",
@@ -34,8 +43,8 @@
     "typescript": "2.9.2"
   },
   "dependencies": {
-    "@gql2ts/from-schema": "^1.8.0",
     "@airbnb-clone/common": "^1.0.0",
+    "@gql2ts/from-schema": "^1.8.0",
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
@@ -63,6 +72,7 @@
     "reflect-metadata": "^0.1.12",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",
+    "rimraf": "^2.6.2",
     "sparkpost": "^2.1.2",
     "typeorm": "0.2.7",
     "typescript-ioc": "^1.2.4",
@@ -70,16 +80,15 @@
     "winston": "^3.0.0",
     "yup": "^0.25.1"
   },
-  "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon --exec ts-node src/index.ts",
-    "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles --verbose --forceExit",
-    "gen-schema-types": "ts-node -r dotenv/config src/scripts/createTypes.ts"
-  },
   "jest": {
     "globalSetup": "./src/testSetup/callSetup.js",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
     "moduleFileExtensions": [
       "ts",

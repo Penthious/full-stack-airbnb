@@ -83,21 +83,6 @@ describe("Register", () => {
     });
   });
 
-  test("Catch no email", async () => {
-    const response = (await client.register(
-      "",
-      password,
-    )) as REGISTER.registerError;
-
-    const users = await User.find({ where: { email } });
-
-    expect(users).toHaveLength(1);
-    expect(response.data.register[0]).toEqual({
-      path: "email",
-      message: emailRequired,
-    });
-  });
-
   test("Catch short passwords", async () => {
     const response = (await client.register(
       email,
@@ -110,21 +95,6 @@ describe("Register", () => {
     expect(response.data.register[0]).toEqual({
       path: "password",
       message: passwordNotLongEnough,
-    });
-  });
-
-  test("Catch no password", async () => {
-    const response = (await client.register(
-      email,
-      "",
-    )) as REGISTER.registerError;
-
-    const users = await User.find({ where: { email } });
-
-    expect(users).toHaveLength(1);
-    expect(response.data.register[0]).toEqual({
-      path: "password",
-      message: passwordRequired,
     });
   });
 });

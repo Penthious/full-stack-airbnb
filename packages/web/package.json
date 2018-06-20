@@ -2,8 +2,9 @@
   "name": "@airbnb-clone/web",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "dependencies": {
-    "@airbnb-clone/server": "1.0.0",
+    "@airbnb-clone/common": "1.0.0",
     "antd": "^3.6.2",
     "apollo-cache-inmemory": "^1.2.4",
     "apollo-client": "^2.3.4",

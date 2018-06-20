@@ -20,7 +20,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const yup = require("yup");
 const typescript_ioc_1 = require("typescript-ioc");
 const UserService_1 = require("../../../services/UserService");
 const createForgotPasswordLink_1 = require("../../../utils/createForgotPasswordLink");
@@ -28,7 +27,7 @@ const errorMessages_1 = require("./errorMessages");
 const constants_1 = require("../../../utils/constants");
 const forgotPasswordLockAccount_1 = require("../../../utils/forgotPasswordLockAccount");
 const formatYupError_1 = require("../../../utils/formatYupError");
-const yupSchemas_1 = require("../../../utils/yupSchemas");
+const common_1 = require("@airbnb-clone/common");
 let ForgotPassword = class ForgotPassword {
     constructor(userService) {
         this.userService = userService;
@@ -38,15 +37,11 @@ let ForgotPassword = class ForgotPassword {
                 sendForgotPasswordEmail: (_, args, context) => this._sendForgotPasswordEmail(_, args, context),
             },
         };
-        this.schema = yup.object().shape({
-            newPassword: yupSchemas_1.passwordValidation,
-            key: yupSchemas_1.newPasswordKeyValidation,
-        });
     }
     _forgotPasswordUpdate(_, { newPassword, key }, { redis }) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.schema.validate({ newPassword, key }, { abortEarly: false });
+                yield common_1.forgotPasswordSchema.validate({ newPassword, key }, { abortEarly: false });
             }
             catch (err) {
                 return formatYupError_1.formatYupError(err);

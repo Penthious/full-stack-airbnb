@@ -1,4 +1,3 @@
-import * as yup from "yup";
 import { Singleton, Inject } from "typescript-ioc";
 
 import UserService from "../../../services/UserService";
@@ -7,11 +6,8 @@ import { expiredKeyError } from "./errorMessages";
 import { FORGOT_PASSWORD_PREFIX } from "../../../utils/constants";
 import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
 import { formatYupError } from "../../../utils/formatYupError";
-import {
-  newPasswordKeyValidation,
-  passwordValidation,
-} from "@airbnb-clone/common/validations";
 import { Context, ResolverMap } from "../../../types/graphql-utils";
+import { forgotPasswordSchema } from "@airbnb-clone/common"
 
 @Singleton
 export default class ForgotPassword {
@@ -23,12 +19,8 @@ export default class ForgotPassword {
         this._sendForgotPasswordEmail(_, args, context),
     },
   };
-  private schema = yup.object().shape({
-    newPassword: passwordValidation,
-    key: newPasswordKeyValidation,
-  });
 
-  constructor(@Inject private userService: UserService) {}
+  constructor(@Inject private userService: UserService) { }
 
   private async _forgotPasswordUpdate(
     _: any,
@@ -36,7 +28,7 @@ export default class ForgotPassword {
     { redis }: Context,
   ) {
     try {
-      await this.schema.validate({ newPassword, key }, { abortEarly: false });
+      await forgotPasswordSchema.validate({ newPassword, key }, { abortEarly: false });
     } catch (err) {
       return formatYupError(err);
     }
