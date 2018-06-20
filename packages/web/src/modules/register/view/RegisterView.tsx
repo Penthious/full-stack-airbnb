@@ -1,8 +1,10 @@
 import * as React from "react";
-import { Button, Form, Icon, Input } from "antd";
+import { Form, Icon } from "antd";
 import { PureComponent } from "react";
-import { withFormik, FormikErrors, FormikValues, FormikProps } from "formik";
+import { withFormik, FormikErrors, FormikValues, FormikProps, Field } from "formik";
 import { registerUserSchema } from "@airbnb-clone/common";
+import { InputField } from "../../shared/InputField";
+import { SubmitButton } from "../../shared/SubmitButton";
 
 interface FormValues {
   email: string;
@@ -17,47 +19,36 @@ export class RegisterView extends PureComponent<
   FormikProps<FormValues> & Props
   > {
   render() {
-    const { values, handleChange, handleBlur, handleSubmit, touched, errors, isSubmitting, isValid } = this.props;
+    const { handleSubmit } = this.props;
     return (
       <form style={{ display: "flex" }} onSubmit={handleSubmit}>
         <div style={{ width: 400, margin: "auto" }}>
-          <Form.Item help={touched.email && errors.email} validateStatus={touched.email && errors.email && "error"}>
-            <Input
-              name="email"
-              prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
-              placeholder="Email"
-              value={values.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Item>
-          <Form.Item help={touched.password && errors.password} validateStatus={touched.password && errors.password && "error"}>
-            <Input
-              name="password"
-              prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} />}
-              type="password"
-              placeholder="Password"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Item>
+          <Field
+            name="email"
+            placeholder="Email"
+            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} /> as any}
+            component={InputField}
+          />
+          <Field
+            name="password"
+            placeholder="Password"
+            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} /> as any}
+            component={InputField}
+          />
           <Form.Item>
             <Form.Item>
               <a className="login-form-forgot" href="">
                 Forgot password
               </a>
             </Form.Item>
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                disabled={isSubmitting && !isValid}
-              >
-                Register
-              </Button>
-            </Form.Item>
+            <Field
+              name="submit"
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+              text="Register"
+              component={SubmitButton}
+            />
             <Form.Item>
               Or <a href="">Login now!</a>
             </Form.Item>
