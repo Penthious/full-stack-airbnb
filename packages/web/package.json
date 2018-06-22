@@ -5,6 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "@airbnb-clone/common": "1.0.0",
+    "@airbnb-clone/controller": "1.0.0",
     "antd": "^3.6.3",
     "apollo-cache-inmemory": "^1.2.5",
     "apollo-client": "^2.3.5",

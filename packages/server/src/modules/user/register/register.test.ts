@@ -7,8 +7,6 @@ import {
   emailNotLongEnough,
   invalidEmail,
   passwordNotLongEnough,
-  emailRequired,
-  passwordRequired,
 } from "./errorMessages";
 import { User } from "../../../entity/User";
 

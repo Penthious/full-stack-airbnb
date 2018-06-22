@@ -53,7 +53,7 @@ export default class UserRepository extends Base {
    */
   public async findOne(value: object | undefined, options?: {}) {
     return this.getUserRepository().findOne({
-      where: { value },
+      where: { ...value },
       ...options,
     });
   }

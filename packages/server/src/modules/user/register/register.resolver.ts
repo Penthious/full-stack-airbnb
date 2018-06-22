@@ -1,5 +1,6 @@
 import { Inject } from "typescript-ioc";
 
+import Config from "../../../Config";
 import UserService from "../../../services/UserService";
 import { Context, ResolverMap } from "../../../types/graphql-utils";
 import { createConfirmEmailLink } from "../../../utils/createConfirmEmailLink";
@@ -15,7 +16,7 @@ export default class Register {
     },
   };
 
-  constructor(@Inject private userService: UserService) { }
+  constructor(@Inject private userService: UserService, @Inject private config: Config) { }
 
   private async register(
     _: any,
@@ -50,7 +51,7 @@ export default class Register {
       password,
     });
 
-    if (!process.env.TEST_HOST) {
+    if (this.config.$env !== 'test') {
       await sendEmail(email, await createConfirmEmailLink(url, user.id, redis));
     }
     return null;
