@@ -1,0 +1,9 @@
+*
+!./package.json
+!./wait-for-conn.sh
+!./packages/server/package.json
+!./packages/server/dist
+!./packages/server/.env-production
+
+!./packages/common/package.json
+!./packages/common/dist

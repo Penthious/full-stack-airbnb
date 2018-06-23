@@ -8,4 +8,3 @@ exports.meQuery = `
     }
   }
   `;
-//# sourceMappingURL=queries.js.map

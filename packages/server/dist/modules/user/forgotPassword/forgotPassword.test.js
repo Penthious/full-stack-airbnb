@@ -74,4 +74,3 @@ describe("forgot password", () => {
         });
     }));
 });
-//# sourceMappingURL=forgotPassword.test.js.map

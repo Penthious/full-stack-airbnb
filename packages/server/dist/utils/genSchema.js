@@ -21,4 +21,3 @@ exports.genSchema = () => {
     });
     return schema;
 };
-//# sourceMappingURL=genSchema.js.map

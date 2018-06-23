@@ -16,4 +16,3 @@ exports.forgotPasswordLockAccount = (userId, redis) => __awaiter(this, void 0, v
     yield User_1.User.update({ id: userId }, { accountLocked: true });
     sessionService.removeAllUserSessions(userId, redis);
 });
-//# sourceMappingURL=forgotPasswordLockAccount.js.map

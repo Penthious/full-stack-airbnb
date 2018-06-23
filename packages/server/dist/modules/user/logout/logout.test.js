@@ -43,4 +43,3 @@ describe("single session", () => {
         expect(response2.data.me).toBeNull();
     }));
 });
-//# sourceMappingURL=logout.test.js.map

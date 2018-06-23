@@ -1,4 +1,10 @@
 {
     "private": true,
-    "workspaces": ["packages/*"]
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "docker:build": "sudo docker build -t penthious/airbnb:1.0.0 .",
+        "start": "cd packages/server && yarn build && cd ../.. && yarn docker:build && sudo docker-compose up"
+    }
 }

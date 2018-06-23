@@ -49,4 +49,3 @@ Logout = __decorate([
     __metadata("design:paramtypes", [Session_1.default])
 ], Logout);
 exports.default = Logout;
-//# sourceMappingURL=logout.resolver.js.map

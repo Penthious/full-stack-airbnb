@@ -1,24 +1,38 @@
 version: "3"
 services:
-  redis:
-    image: redis
   db:
     image: postgres
+    ports: 
+      - "5431:5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: tomas
+      POSTGRES_USER: 
       POSTGRES_PASSWORD: test
-      POSTGRES_DB: airbnb-clone
+      POSTGRES_DB: airbnb_clone
+  redis:
+    image: redis
+    ports:
+      - "6379"
   api:
-    build: ./packages/server
+    image: penthious/airbnb:1.0.0
+    command: [ "../../wait-for-conn.sh", "db:5432", "--", "../../wait-for-conn.sh","redis:6380", "--", "node", "dist/index.js" ]
     environment:
-      DB_HOST: db
+      DATABASE_HOST: db
+      DATABASE_USERNAME: tomas
+      DATABASE_PASSWORD: test
+      DATABASE_NAME: airbnb_clone
       REDIS_HOST: redis
-      NODE_ENV: develop
+      REDIS_PORT: "6379"
+      NODE_ENV: production
+    ports:
+      - "4000:4000"
     depends_on:
       - db
       - redis
-    command: ./node_modules/.bin/nodemon -e ts -w ./src -x ./node_modules/.bin/ts-node src/index.ts
+    # command: ./node_modules/.bin/nodemon -e ts -w ./src -x ./node_modules/.bin/ts-node src/index.ts
     volumes:
       - ./files:/app/files
+    links: 
+      - db
+      

@@ -21,6 +21,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typescript_ioc_1 = require("typescript-ioc");
+const Config_1 = require("../../../Config");
 const UserService_1 = require("../../../services/UserService");
 const createConfirmEmailLink_1 = require("../../../utils/createConfirmEmailLink");
 const errorMessages_1 = require("./errorMessages");
@@ -28,8 +29,9 @@ const formatYupError_1 = require("../../../utils/formatYupError");
 const sendEmail_1 = require("../../../utils/sendEmail");
 const common_1 = require("@airbnb-clone/common");
 let Register = class Register {
-    constructor(userService) {
+    constructor(userService, config) {
         this.userService = userService;
+        this.config = config;
         this.resolvers = {
             Mutation: {
                 register: (_, args, context) => this.register(_, args, context),
@@ -60,7 +62,7 @@ let Register = class Register {
                 email,
                 password,
             });
-            if (!process.env.TEST_HOST) {
+            if (this.config.$env !== 'test') {
                 yield sendEmail_1.sendEmail(email, yield createConfirmEmailLink_1.createConfirmEmailLink(url, user.id, redis));
             }
             return null;
@@ -68,8 +70,7 @@ let Register = class Register {
     }
 };
 Register = __decorate([
-    __param(0, typescript_ioc_1.Inject),
-    __metadata("design:paramtypes", [UserService_1.default])
+    __param(0, typescript_ioc_1.Inject), __param(1, typescript_ioc_1.Inject),
+    __metadata("design:paramtypes", [UserService_1.default, Config_1.default])
 ], Register);
 exports.default = Register;
-//# sourceMappingURL=register.resolver.js.map

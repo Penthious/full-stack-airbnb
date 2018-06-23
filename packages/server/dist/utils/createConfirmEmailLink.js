@@ -18,4 +18,3 @@ exports.storeLinkToRedis = (id, userId, redis) => {
     const twentyFourHours = 60 * 60 * 24;
     return redis.set(id, userId, "ex", twentyFourHours);
 };
-//# sourceMappingURL=createConfirmEmailLink.js.map

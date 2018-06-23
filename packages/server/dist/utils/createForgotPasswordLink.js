@@ -19,4 +19,3 @@ exports.storeLinkToRedis = (id, userId, redis) => {
     const twentyMinutes = 60 * 20;
     return redis.set(`${constants_1.FORGOT_PASSWORD_PREFIX}${id}`, userId, "ex", twentyMinutes);
 };
-//# sourceMappingURL=createForgotPasswordLink.js.map

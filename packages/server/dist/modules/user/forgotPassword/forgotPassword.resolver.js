@@ -81,4 +81,3 @@ ForgotPassword = __decorate([
     __metadata("design:paramtypes", [UserService_1.default])
 ], ForgotPassword);
 exports.default = ForgotPassword;
-//# sourceMappingURL=forgotPassword.resolver.js.map

@@ -37,6 +37,9 @@ const genSchema_1 = require("./utils/genSchema");
 const constants_1 = require("./utils/constants");
 const twitterOauth_1 = require("./routes/twitterOauth");
 const Logger_1 = require("./Logger");
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 let App = class App {
     constructor(graphqlServerConfig) {
         this.graphqlServerConfig = graphqlServerConfig;
@@ -44,10 +47,13 @@ let App = class App {
         this._name = "graphql_server.App";
         this.logger = typescript_ioc_1.Container.get(Logger_1.default);
         this.redisStore = connectRedis(session);
-        this.redis = new Redis();
+        this.redis = this.graphqlServerConfig.$redis_port ? new Redis({
+            port: this.graphqlServerConfig.$redis_port, host: this.graphqlServerConfig.$redis_host
+        }) : new Redis();
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
+            yield timeout(4000);
             const server = this.createApp();
             const options = this.setupConnectionOptions();
             this.logger.log("INFO", `${this._name}#start`, {
@@ -65,26 +71,23 @@ let App = class App {
         });
     }
     setupOrmConfigOptions() {
-        return {
-            name: "default",
-            type: "postgres",
-            host: this.graphqlServerConfig.$database_host,
-            port: this.graphqlServerConfig.$database_port,
-            username: this.graphqlServerConfig.$database_username,
-            password: this.graphqlServerConfig.$database_password,
-            database: this.graphqlServerConfig.$database_name,
-            synchronize: true,
-            logging: this.graphqlServerConfig.$env !== "test",
-            dropSchema: this.graphqlServerConfig.$env === "test",
+        let tsExtension = {
             entities: ["src/entity/**/*.ts"],
             migrations: ["src/migration/**/*.ts"],
             subscribers: ["src/subscriber/**/*.ts"],
-            cli: {
+        };
+        if (this.graphqlServerConfig.$env === 'production') {
+            tsExtension = {
+                entities: ["dist/entity/**/*.js"],
+                migrations: ["dist/migration/**/*.js"],
+                subscribers: ["dist/subscriber/**/*.js"],
+            };
+        }
+        return Object.assign({ name: "default", type: "postgres", host: this.graphqlServerConfig.$database_host, port: this.graphqlServerConfig.$database_port, username: this.graphqlServerConfig.$database_username, password: this.graphqlServerConfig.$database_password, database: this.graphqlServerConfig.$database_name, synchronize: true }, tsExtension, { logging: this.graphqlServerConfig.$env !== "test", dropSchema: this.graphqlServerConfig.$env === "test", cli: {
                 entitiesDir: "src/entity",
                 migrationsDir: "src/migration",
                 subscribersDir: "src/subscriber",
-            },
-        };
+            } });
     }
     setupConnectionOptions() {
         const cors = {
@@ -102,6 +105,10 @@ let App = class App {
     createConn(config = this.setupOrmConfigOptions()) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                this.logger.log("ERROR", `${this._name}#createApp`, {
+                    message: "There seems to have been a issue starting the app",
+                    error: config,
+                }, "SECURITY_HIGH");
                 this.connection = yield typeorm_1.createConnection(config);
                 return this.connection;
             }
@@ -116,15 +123,25 @@ let App = class App {
         });
     }
     createServer() {
-        this.server = new graphql_yoga_1.GraphQLServer({
-            schema: genSchema_1.genSchema(),
-            context: ({ request }) => ({
-                request,
-                redis: this.redis,
-                session: request.session,
-                url: `${request.protocol}://${request.get("host")}`,
-            }),
-        });
+        try {
+            this.server = new graphql_yoga_1.GraphQLServer({
+                schema: genSchema_1.genSchema(),
+                context: ({ request }) => ({
+                    request,
+                    redis: this.redis,
+                    session: request.session,
+                    url: `${request.protocol}://${request.get("host")}`,
+                }),
+            });
+        }
+        catch (error) {
+            console.log('we are error', error);
+            this.logger.log("ERROR", `${this._name}#createServer`, {
+                message: "There seems to have been an issue creating the server",
+                error: error.message,
+            }, "SECURITY_HIGH");
+            throw new Error(error);
+        }
     }
     setupRateLimit() {
         if (this.graphqlServerConfig.$env !== "production") {
@@ -205,4 +222,3 @@ App = __decorate([
     __metadata("design:paramtypes", [Config_1.default])
 ], App);
 exports.default = App;
-//# sourceMappingURL=App.js.map

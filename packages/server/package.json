@@ -5,10 +5,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "build": "rimraf ./dist && tsc && copyfiles -u 1 src/**/*.graphql dist",
+    "gen-schema-types": "ts-node -r dotenv/config src/scripts/createTypes.ts",
     "start": "cross-env NODE_ENV=develop nodemon --exec ts-node src/index.ts",
-    "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles --verbose --forceExit",
-    "build": "rimraf ./dist && tsc",
-    "gen-schema-types": "ts-node -r dotenv/config src/scripts/createTypes.ts"
+    "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles --verbose --forceExit"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.1",
@@ -33,6 +33,7 @@
     "@types/winston": "^2.3.9",
     "@types/ws": "^5.1.2",
     "@types/yup": "^0.24.7",
+    "copyfiles": "^2.0.0",
     "gql2ts": "^1.8.0",
     "jest": "^23.1.0",
     "nodemon": "^1.17.5",

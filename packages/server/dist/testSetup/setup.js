@@ -16,4 +16,3 @@ exports.setup = () => __awaiter(this, void 0, void 0, function* () {
     const { port } = server.address();
     process.env.TEST_HOST = `http://127.0.0.1:${port}`;
 });
-//# sourceMappingURL=setup.js.map

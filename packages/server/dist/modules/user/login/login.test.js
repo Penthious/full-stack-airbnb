@@ -60,4 +60,3 @@ describe("login", () => {
         expect(response.data.login).toEqual(null);
     }));
 });
-//# sourceMappingURL=login.test.js.map

@@ -15,4 +15,3 @@ test("Sends invalid back if bad id sent", () => __awaiter(this, void 0, void 0, 
     const text = yield response.text();
     expect(text).toEqual("invalid");
 }));
-//# sourceMappingURL=confirmEmail.test.js.map

@@ -95,4 +95,3 @@ TestClient = __decorate([
     __metadata("design:paramtypes", [UserService_1.default])
 ], TestClient);
 exports.default = TestClient;
-//# sourceMappingURL=testCLient.js.map

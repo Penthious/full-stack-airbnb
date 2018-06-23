@@ -29,4 +29,3 @@ exports.registerMutation = (email, password) => `
     }
   }
   `;
-//# sourceMappingURL=mutations.js.map

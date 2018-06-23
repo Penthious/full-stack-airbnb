@@ -8,4 +8,3 @@ class Base {
     }
 }
 exports.default = Base;
-//# sourceMappingURL=BaseRepository.js.map

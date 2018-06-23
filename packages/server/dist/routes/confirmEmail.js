@@ -24,4 +24,3 @@ exports.confirmEmail = (req, res) => __awaiter(this, void 0, void 0, function* (
         res.send("invalid");
     }
 });
-//# sourceMappingURL=confirmEmail.js.map

@@ -42,4 +42,3 @@ describe("Email link", () => {
         expect(text).toEqual("invalid");
     }));
 });
-//# sourceMappingURL=createConfirmEmailLink.test.js.map

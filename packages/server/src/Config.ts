@@ -23,6 +23,8 @@ export default class GraphqlServerConfig {
   private EXPRESS_APP_PORT: number;
   private EXPRESS_APP_URL: string;
   private FRONTEND_HOST: string;
+  private REDIS_PORT: number | undefined;
+  private REDIS_HOST: string | undefined;
   private SERVICE_NAME: string;
   private SESSION_SECRET: string;
   private SPARKPOST_API_KEY: string;
@@ -132,6 +134,9 @@ export default class GraphqlServerConfig {
     this.TWITTER_CONSUMER_SECRET = process.env
       .TWITTER_CONSUMER_SECRET as string;
 
+    this.REDIS_PORT = process.env.REDIS_PORT ? parseInt(process.env.REDIS_PORT, 10) : undefined;
+    this.REDIS_HOST = process.env.REDIS_HOST;
+
     // this.logger.logLevel = this.$log_level;
 
     logger.log("INFO", "CONFIG", {
@@ -214,5 +219,13 @@ export default class GraphqlServerConfig {
 
   public get $twitter_consumer_secret(): string {
     return this.TWITTER_CONSUMER_SECRET;
+  }
+
+  public get $redis_port(): number | undefined {
+    return this.REDIS_PORT;
+  }
+
+  public get $redis_host(): string | undefined {
+    return this.REDIS_HOST;
   }
 }

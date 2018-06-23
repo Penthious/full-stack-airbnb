@@ -60,15 +60,6 @@ describe("Register", () => {
             message: errorMessages_1.emailNotLongEnough,
         });
     }));
-    test("Catch no email", () => __awaiter(this, void 0, void 0, function* () {
-        const response = (yield client.register("", password));
-        const users = yield User_1.User.find({ where: { email } });
-        expect(users).toHaveLength(1);
-        expect(response.data.register[0]).toEqual({
-            path: "email",
-            message: errorMessages_1.emailRequired,
-        });
-    }));
     test("Catch short passwords", () => __awaiter(this, void 0, void 0, function* () {
         const response = (yield client.register(email, "1"));
         const users = yield User_1.User.find({ where: { email } });
@@ -78,14 +69,4 @@ describe("Register", () => {
             message: errorMessages_1.passwordNotLongEnough,
         });
     }));
-    test("Catch no password", () => __awaiter(this, void 0, void 0, function* () {
-        const response = (yield client.register(email, ""));
-        const users = yield User_1.User.find({ where: { email } });
-        expect(users).toHaveLength(1);
-        expect(response.data.register[0]).toEqual({
-            path: "password",
-            message: errorMessages_1.passwordRequired,
-        });
-    }));
 });
-//# sourceMappingURL=register.test.js.map

@@ -18,8 +18,16 @@ const Logger_1 = require("./Logger");
 const logger = typescript_ioc_1.Container.get(Logger_1.default);
 const dotenvPath = `${__dirname}/../.env-${process.env.NODE_ENV}`;
 dotenv_1.config({ path: `${dotenvPath}` });
+console.log(dotenvPath);
 let GraphqlServerConfig = class GraphqlServerConfig {
     constructor() {
+        console.log(process.env.NODE_ENV);
+        console.log('======================');
+        console.log('======================');
+        console.log('======================');
+        console.log(process.env);
+        console.log('======================');
+        console.log('======================');
         this.APP_VERSION = pjson.version;
         assert(process.env.NODE_ENV, `No environmental variable with key "NODE_ENV" is set."`);
         this.ENV = process.env.NODE_ENV;
@@ -52,6 +60,8 @@ let GraphqlServerConfig = class GraphqlServerConfig {
         assert(process.env.TWITTER_CONSUMER_SECRET, `No environmental variable with key "TWITTER_CONSUMER_SECRET" is set."`);
         this.TWITTER_CONSUMER_SECRET = process.env
             .TWITTER_CONSUMER_SECRET;
+        this.REDIS_PORT = process.env.REDIS_PORT ? parseInt(process.env.REDIS_PORT, 10) : undefined;
+        this.REDIS_HOST = process.env.REDIS_HOST;
         logger.log("INFO", "CONFIG", {
             message: "graphql-server-configuration",
             config: {
@@ -116,10 +126,15 @@ let GraphqlServerConfig = class GraphqlServerConfig {
     get $twitter_consumer_secret() {
         return this.TWITTER_CONSUMER_SECRET;
     }
+    get $redis_port() {
+        return this.REDIS_PORT;
+    }
+    get $redis_host() {
+        return this.REDIS_HOST;
+    }
 };
 GraphqlServerConfig = __decorate([
     typescript_ioc_1.Singleton,
     __metadata("design:paramtypes", [])
 ], GraphqlServerConfig);
 exports.default = GraphqlServerConfig;
-//# sourceMappingURL=Config.js.map

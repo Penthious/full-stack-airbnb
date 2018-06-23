@@ -14,4 +14,3 @@ exports.default = (resolver, parent, args, context, info) => __awaiter(this, voi
     }
     return resolver(parent, args, context, info);
 });
-//# sourceMappingURL=middleware.js.map

@@ -30,4 +30,3 @@ exports.sendEmail = (recipient, url) => __awaiter(this, void 0, void 0, function
     });
     console.log(response);
 });
-//# sourceMappingURL=sendEmail.js.map

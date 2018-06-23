@@ -34,4 +34,3 @@ Me = __decorate([
     __metadata("design:paramtypes", [UserService_1.default])
 ], Me);
 exports.default = Me;
-//# sourceMappingURL=me.resolver.js.map

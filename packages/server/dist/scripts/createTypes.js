@@ -7,4 +7,3 @@ const genSchema_1 = require("../utils/genSchema");
 fs_1.writeFile(path_1.join(__dirname, "../types/schema.d.ts"), from_schema_1.generateNamespace("GQL", genSchema_1.genSchema()), error => {
     console.log(error);
 });
-//# sourceMappingURL=createTypes.js.map

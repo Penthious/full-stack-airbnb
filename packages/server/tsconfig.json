@@ -8,7 +8,7 @@
       "es2017",
       "esnext.asynciterable"
     ],
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "./dist",
     "moduleResolution": "node",
     "removeComments": true,

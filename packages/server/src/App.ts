@@ -29,7 +29,9 @@ export default class App {
   private redisStore = connectRedis(session);
 
   constructor(@Inject private graphqlServerConfig: GraphqlServerConfig) {
-    this.redis = new Redis();
+    this.redis = this.graphqlServerConfig.$redis_port ? new Redis({
+      port: this.graphqlServerConfig.$redis_port, host: this.graphqlServerConfig.$redis_host
+    }) : new Redis();
   }
 
   /**
@@ -73,6 +75,18 @@ export default class App {
    * deppending on your .env and NODE_ENV
    */
   public setupOrmConfigOptions() {
+    let tsExtension = {
+      entities: ["src/entity/**/*.ts"],
+      migrations: ["src/migration/**/*.ts"],
+      subscribers: ["src/subscriber/**/*.ts"],
+    }
+    if (this.graphqlServerConfig.$env === 'production') {
+      tsExtension = {
+        entities: ["dist/entity/**/*.js"],
+        migrations: ["dist/migration/**/*.js"],
+        subscribers: ["dist/subscriber/**/*.js"],
+      }
+    }
     return {
       name: "default",
       type: "postgres",
@@ -82,11 +96,9 @@ export default class App {
       password: this.graphqlServerConfig.$database_password,
       database: this.graphqlServerConfig.$database_name,
       synchronize: true,
+      ...tsExtension,
       logging: this.graphqlServerConfig.$env !== "test",
       dropSchema: this.graphqlServerConfig.$env === "test",
-      entities: ["src/entity/**/*.ts"],
-      migrations: ["src/migration/**/*.ts"],
-      subscribers: ["src/subscriber/**/*.ts"],
       cli: {
         entitiesDir: "src/entity",
         migrationsDir: "src/migration",
@@ -151,15 +163,29 @@ export default class App {
    * Creates the graphql server
    */
   private createServer() {
-    this.server = new GraphQLServer({
-      schema: genSchema() as any,
-      context: ({ request }) => ({
-        request,
-        redis: this.redis,
-        session: request.session,
-        url: `${request.protocol}://${request.get("host")}`,
-      }),
-    });
+    try {
+      this.server = new GraphQLServer({
+        schema: genSchema() as any,
+        context: ({ request }) => ({
+          request,
+          redis: this.redis,
+          session: request.session,
+          url: `${request.protocol}://${request.get("host")}`,
+        }),
+      });
+    } catch (error) {
+      this.logger.log(
+        "ERROR",
+        `${this._name}#createServer`,
+        {
+          message:
+            "There seems to have been an issue creating the server",
+          error: error.message,
+        },
+        "SECURITY_HIGH",
+      );
+      throw new Error(error);
+    }
   }
 
   /**

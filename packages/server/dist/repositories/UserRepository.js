@@ -52,7 +52,7 @@ let UserRepository = class UserRepository extends BaseRepository_1.default {
     }
     findOne(value, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.getUserRepository().findOne(Object.assign({ where: { value } }, options));
+            return this.getUserRepository().findOne(Object.assign({ where: Object.assign({}, value) }, options));
         });
     }
     findWhereIn(params) {
@@ -88,4 +88,3 @@ UserRepository = __decorate([
     typescript_ioc_1.Singleton
 ], UserRepository);
 exports.default = UserRepository;
-//# sourceMappingURL=UserRepository.js.map
