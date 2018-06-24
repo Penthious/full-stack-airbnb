@@ -15,10 +15,8 @@ services:
     ports:
       - "6379"
   api:
-    build: .
-    working_dir: /airbnb/packages/server
-    # command: yarn start
-    command: bash -c "ls -la && yarn && ./node_modules/.bin/nodemon -e ts -w ../../ -x ./node_modules/.bin/ts-node src/index.ts"
+    image: penthious/airbnb:1.0.0
+    # command: [ "../../wait-for-conn.sh", "db:5432", "--", "node", "dist/index.js" ]
     environment:
       DATABASE_HOST: db
       DATABASE_USERNAME: tomas
@@ -26,21 +24,15 @@ services:
       DATABASE_NAME: airbnb_clone
       REDIS_HOST: redis
       REDIS_PORT: "6379"
-      NODE_ENV: develop
+      NODE_ENV: production
     ports:
       - "4000:4000"
     depends_on:
       - db
       - redis
+    command: ./node_modules/.bin/nodemon -e ts -w ./src -x yarn build && node dist/index.js
     volumes:
       - ./files:/app/files
     links: 
       - db
-  web:
-    build: .
-    working_dir: /airbnb/packages/web
-    command: bash -c "yarn && yarn start"
-    ports: 
-      - "3000:3000"
-    
       

@@ -37,9 +37,6 @@ const genSchema_1 = require("./utils/genSchema");
 const constants_1 = require("./utils/constants");
 const twitterOauth_1 = require("./routes/twitterOauth");
 const Logger_1 = require("./Logger");
-function timeout(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 let App = class App {
     constructor(graphqlServerConfig) {
         this.graphqlServerConfig = graphqlServerConfig;
@@ -53,7 +50,6 @@ let App = class App {
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
-            yield timeout(4000);
             const server = this.createApp();
             const options = this.setupConnectionOptions();
             this.logger.log("INFO", `${this._name}#start`, {
@@ -105,10 +101,6 @@ let App = class App {
     createConn(config = this.setupOrmConfigOptions()) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                this.logger.log("ERROR", `${this._name}#createApp`, {
-                    message: "There seems to have been a issue starting the app",
-                    error: config,
-                }, "SECURITY_HIGH");
                 this.connection = yield typeorm_1.createConnection(config);
                 return this.connection;
             }
@@ -135,7 +127,6 @@ let App = class App {
             });
         }
         catch (error) {
-            console.log('we are error', error);
             this.logger.log("ERROR", `${this._name}#createServer`, {
                 message: "There seems to have been an issue creating the server",
                 error: error.message,

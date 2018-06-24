@@ -18,16 +18,8 @@ const Logger_1 = require("./Logger");
 const logger = typescript_ioc_1.Container.get(Logger_1.default);
 const dotenvPath = `${__dirname}/../.env-${process.env.NODE_ENV}`;
 dotenv_1.config({ path: `${dotenvPath}` });
-console.log(dotenvPath);
 let GraphqlServerConfig = class GraphqlServerConfig {
     constructor() {
-        console.log(process.env.NODE_ENV);
-        console.log('======================');
-        console.log('======================');
-        console.log('======================');
-        console.log(process.env);
-        console.log('======================');
-        console.log('======================');
         this.APP_VERSION = pjson.version;
         assert(process.env.NODE_ENV, `No environmental variable with key "NODE_ENV" is set."`);
         this.ENV = process.env.NODE_ENV;
