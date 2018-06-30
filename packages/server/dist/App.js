@@ -78,20 +78,16 @@ let App = class App {
             username: this.graphqlServerConfig.$database_username,
             password: this.graphqlServerConfig.$database_password,
             database: this.graphqlServerConfig.$database_name,
-            tsExtension: {
-                entities: ["src/entity/**/*.ts"],
-                migrations: ["src/migration/**/*.ts"],
-                subscribers: ["src/subscriber/**/*.ts"],
-            }
+            entities: ["src/entity/**/*.ts"],
+            migrations: ["src/migration/**/*.ts"],
+            subscribers: ["src/subscriber/**/*.ts"],
         };
         if (this.graphqlServerConfig.$env === 'production') {
             configData = {
                 url: process.env.DATABASE_URL,
-                tsExtension: {
-                    entities: ["entity/**/*.js"],
-                    migrations: ["migration/**/*.js"],
-                    subscribers: ["subscriber/**/*.js"],
-                }
+                entities: ["entity/**/*.js"],
+                migrations: ["migration/**/*.js"],
+                subscribers: ["subscriber/**/*.js"],
             };
         }
         const config = Object.assign({ name: "default", type: "postgres", synchronize: true }, configData, { logging: this.graphqlServerConfig.$env !== "test", dropSchema: this.graphqlServerConfig.$env === "test", cli: {
