@@ -15,7 +15,7 @@ services:
     ports:
       - "6379"
   api:
-    image: penthious/airbnb:1.0.0
+    build: .
     # command: [ "../../wait-for-conn.sh", "db:5432", "--", "node", "dist/index.js" ]
     environment:
       DATABASE_HOST: db
@@ -30,7 +30,7 @@ services:
     depends_on:
       - db
       - redis
-    command: ./node_modules/.bin/nodemon -e ts -w ./src -x yarn build && node dist/index.js
+    # command: ./node_modules/.bin/nodemon -e ts -w ./src -x yarn build && node dist/index.js
     volumes:
       - ./files:/app/files
     links: 

@@ -3,13 +3,13 @@ services:
   db:
     image: postgres
     ports: 
-      - "5431:5432"
+      - "5432:5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: 
-      POSTGRES_PASSWORD: test
       POSTGRES_DB: airbnb_clone
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
   redis:
     image: redis
     ports:
@@ -21,12 +21,12 @@ services:
     command: bash -c "ls -la && yarn && ./node_modules/.bin/nodemon -e ts -w ../../ -x ./node_modules/.bin/ts-node src/index.ts"
     environment:
       DATABASE_HOST: db
-      DATABASE_USERNAME: tomas
-      DATABASE_PASSWORD: test
       DATABASE_NAME: airbnb_clone
+      DATABASE_PASSWORD: postgres
+      DATABASE_USERNAME: postgres
+      NODE_ENV: develop
       REDIS_HOST: redis
       REDIS_PORT: "6379"
-      NODE_ENV: develop
     ports:
       - "4000:4000"
     depends_on:
@@ -36,11 +36,14 @@ services:
       - ./files:/app/files
     links: 
       - db
-  web:
-    build: .
-    working_dir: /airbnb/packages/web
-    command: bash -c "yarn && yarn start"
-    ports: 
-      - "3000:3000"
+  # web:
+  #   build: .
+  #   working_dir: /airbnb/packages/web
+  #   command: bash -c "cd src && ls -la && cd .. && yarn && yarn start"
+  #   volumes:
+  #     - ./src:/airbnb/packages/web/src
+  #     - ./package.json:/airbnb/packages/web/src/package.json
+  #   ports: 
+  #     - "3000:3000"
     
       

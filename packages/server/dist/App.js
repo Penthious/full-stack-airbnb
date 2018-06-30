@@ -44,9 +44,14 @@ let App = class App {
         this._name = "graphql_server.App";
         this.logger = typescript_ioc_1.Container.get(Logger_1.default);
         this.redisStore = connectRedis(session);
-        this.redis = this.graphqlServerConfig.$redis_port ? new Redis({
-            port: this.graphqlServerConfig.$redis_port, host: this.graphqlServerConfig.$redis_host
-        }) : new Redis();
+        if (this.graphqlServerConfig.$env === 'production') {
+            this.redis = new Redis(process.env.REDIS_URL);
+        }
+        else {
+            this.redis = this.graphqlServerConfig.$redis_port ? new Redis({
+                port: this.graphqlServerConfig.$redis_port, host: this.graphqlServerConfig.$redis_host
+            }) : new Redis();
+        }
     }
     start() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -67,23 +72,34 @@ let App = class App {
         });
     }
     setupOrmConfigOptions() {
-        let tsExtension = {
-            entities: ["src/entity/**/*.ts"],
-            migrations: ["src/migration/**/*.ts"],
-            subscribers: ["src/subscriber/**/*.ts"],
+        let configData = {
+            host: this.graphqlServerConfig.$database_host,
+            port: this.graphqlServerConfig.$database_port,
+            username: this.graphqlServerConfig.$database_username,
+            password: this.graphqlServerConfig.$database_password,
+            database: this.graphqlServerConfig.$database_name,
+            tsExtension: {
+                entities: ["src/entity/**/*.ts"],
+                migrations: ["src/migration/**/*.ts"],
+                subscribers: ["src/subscriber/**/*.ts"],
+            }
         };
         if (this.graphqlServerConfig.$env === 'production') {
-            tsExtension = {
-                entities: ["dist/entity/**/*.js"],
-                migrations: ["dist/migration/**/*.js"],
-                subscribers: ["dist/subscriber/**/*.js"],
+            configData = {
+                url: process.env.DATABASE_URL,
+                tsExtension: {
+                    entities: ["entity/**/*.js"],
+                    migrations: ["migration/**/*.js"],
+                    subscribers: ["subscriber/**/*.js"],
+                }
             };
         }
-        return Object.assign({ name: "default", type: "postgres", host: this.graphqlServerConfig.$database_host, port: this.graphqlServerConfig.$database_port, username: this.graphqlServerConfig.$database_username, password: this.graphqlServerConfig.$database_password, database: this.graphqlServerConfig.$database_name, synchronize: true }, tsExtension, { logging: this.graphqlServerConfig.$env !== "test", dropSchema: this.graphqlServerConfig.$env === "test", cli: {
+        const config = Object.assign({ name: "default", type: "postgres", synchronize: true }, configData, { logging: this.graphqlServerConfig.$env !== "test", dropSchema: this.graphqlServerConfig.$env === "test", cli: {
                 entitiesDir: "src/entity",
                 migrationsDir: "src/migration",
                 subscribersDir: "src/subscriber",
             } });
+        return config;
     }
     setupConnectionOptions() {
         const cors = {

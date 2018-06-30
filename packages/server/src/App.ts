@@ -29,9 +29,13 @@ export default class App {
   private redisStore = connectRedis(session);
 
   constructor(@Inject private graphqlServerConfig: GraphqlServerConfig) {
-    this.redis = this.graphqlServerConfig.$redis_port ? new Redis({
-      port: this.graphqlServerConfig.$redis_port, host: this.graphqlServerConfig.$redis_host
-    }) : new Redis();
+    if (this.graphqlServerConfig.$env === 'production') {
+      this.redis = new Redis(process.env.REDIS_URL) // @todo: extract this to config
+    } else {
+      this.redis = this.graphqlServerConfig.$redis_port ? new Redis({
+        port: this.graphqlServerConfig.$redis_port, host: this.graphqlServerConfig.$redis_host
+      }) : new Redis();
+    }
   }
 
   /**
@@ -75,28 +79,29 @@ export default class App {
    * deppending on your .env and NODE_ENV
    */
   public setupOrmConfigOptions() {
-    let tsExtension = {
-      entities: ["src/entity/**/*.ts"],
-      migrations: ["src/migration/**/*.ts"],
-      subscribers: ["src/subscriber/**/*.ts"],
-    }
-    if (this.graphqlServerConfig.$env === 'production') {
-      tsExtension = {
-        entities: ["dist/entity/**/*.js"],
-        migrations: ["dist/migration/**/*.js"],
-        subscribers: ["dist/subscriber/**/*.js"],
-      }
-    }
-    return {
-      name: "default",
-      type: "postgres",
+    let configData = {
       host: this.graphqlServerConfig.$database_host,
       port: this.graphqlServerConfig.$database_port,
       username: this.graphqlServerConfig.$database_username,
       password: this.graphqlServerConfig.$database_password,
       database: this.graphqlServerConfig.$database_name,
+      entities: ["src/entity/**/*.ts"],
+      migrations: ["src/migration/**/*.ts"],
+      subscribers: ["src/subscriber/**/*.ts"],
+    }
+    if (this.graphqlServerConfig.$env === 'production') {
+      configData = {
+        url: process.env.DATABASE_URL, // @todo: extract this to config
+        entities: ["entity/**/*.js"],
+        migrations: ["migration/**/*.js"],
+        subscribers: ["subscriber/**/*.js"],
+      } as any
+    }
+    const config = {
+      name: "default",
+      type: "postgres",
       synchronize: true,
-      ...tsExtension,
+      ...configData,
       logging: this.graphqlServerConfig.$env !== "test",
       dropSchema: this.graphqlServerConfig.$env === "test",
       cli: {
@@ -105,6 +110,8 @@ export default class App {
         subscribersDir: "src/subscriber",
       },
     };
+
+    return config;
   }
 
   /**
@@ -142,6 +149,7 @@ export default class App {
   public async createConn(config: any = this.setupOrmConfigOptions()) {
     try {
       this.connection = await createConnection(config);
+
       return this.connection;
     } catch (error) {
       this.logger.log(
