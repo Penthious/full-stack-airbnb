@@ -37,6 +37,7 @@ const genSchema_1 = require("./utils/genSchema");
 const constants_1 = require("./utils/constants");
 const twitterOauth_1 = require("./routes/twitterOauth");
 const Logger_1 = require("./Logger");
+const path_1 = require("path");
 let App = class App {
     constructor(graphqlServerConfig) {
         this.graphqlServerConfig = graphqlServerConfig;
@@ -85,9 +86,9 @@ let App = class App {
         if (this.graphqlServerConfig.$env === 'production') {
             configData = {
                 url: process.env.DATABASE_URL,
-                entities: ["entity/**/*.js"],
-                migrations: ["migration/**/*.js"],
-                subscribers: ["subscriber/**/*.js"],
+                entities: [path_1.join(__dirname, './entity/**/*.js')],
+                migrations: ["./migration/**/*.js"],
+                subscribers: ["./subscriber/**/*.js"],
             };
         }
         const config = Object.assign({ name: "default", type: "postgres", synchronize: true }, configData, { logging: this.graphqlServerConfig.$env !== "test", dropSchema: this.graphqlServerConfig.$env === "test", cli: {

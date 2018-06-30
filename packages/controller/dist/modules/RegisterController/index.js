@@ -50,9 +50,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 import gql from "graphql-tag";
 import { PureComponent } from "react";
 import { graphql } from "react-apollo";
-var registerController = /** @class */ (function (_super) {
-    __extends(registerController, _super);
-    function registerController() {
+var Register = /** @class */ (function (_super) {
+    __extends(Register, _super);
+    function Register() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.submit = function (values) { return __awaiter(_this, void 0, void 0, function () {
             var response;
@@ -72,12 +72,12 @@ var registerController = /** @class */ (function (_super) {
         }); };
         return _this;
     }
-    registerController.prototype.render = function () {
+    Register.prototype.render = function () {
         return this.props.children({ submit: this.submit });
     };
-    return registerController;
+    return Register;
 }(PureComponent));
 var registerMutation = gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  mutation RegisterMutation($email: String!, $password: String!) {\n    register(email: $email, password: $password) {\n      path\n      message\n    }\n  }\n"], ["\n  mutation RegisterMutation($email: String!, $password: String!) {\n    register(email: $email, password: $password) {\n      path\n      message\n    }\n  }\n"])));
-export var RegisterController = graphql(registerMutation)(registerController);
+export var RegisterController = graphql(registerMutation)(Register);
 var templateObject_1;
 //# sourceMappingURL=index.js.map

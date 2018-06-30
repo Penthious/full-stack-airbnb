@@ -16,6 +16,7 @@ import { genSchema } from "./utils/genSchema";
 import { REDIS_SESSION_PREFIX } from "./utils/constants";
 import { twitterPassport } from "./routes/twitterOauth";
 import Logger from "./Logger";
+import { join } from "path";
 
 @Singleton
 export default class App {
@@ -92,9 +93,9 @@ export default class App {
     if (this.graphqlServerConfig.$env === 'production') {
       configData = {
         url: process.env.DATABASE_URL, // @todo: extract this to config
-        entities: ["entity/**/*.js"],
-        migrations: ["migration/**/*.js"],
-        subscribers: ["subscriber/**/*.js"],
+        entities: [join(__dirname, './entity/**/*.js')],
+        migrations: ["./migration/**/*.js"],
+        subscribers: ["./subscriber/**/*.js"],
       } as any
     }
     const config = {
