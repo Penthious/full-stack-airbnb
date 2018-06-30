@@ -7,7 +7,8 @@
         "docker:build": "sudo docker build -t penthious/airbnb-clone:latest .",
         "docker:push": "sudo docker push penthious/airbnb-clone:latest",
         "start": "yarn docker:build && sudo docker-compose up",
-        "build:server": "lerna run build --scope={@airbnb-clone/common,@airbnb-clone/server}"
+        "build:server": "lerna run build --scope={@airbnb-clone/common,@airbnb-clone/server}",
+        "deploy:server": "./server-deploy.sh"
     },
     "devDependencies": {
         "lerna": "^2.11.0"
