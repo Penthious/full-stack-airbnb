@@ -10,10 +10,15 @@ interface Props {
 class Register extends PureComponent<ChildMutateProps<Props, RegisterMutation, RegisterMutationVariables>> {
     submit = async (values: RegisterMutationVariables) => {
         console.log(values, this.props)
-        const response = await this.props.mutate({
-            variables: values
-        });
-        console.log(response)
+        try {
+            const response = await this.props.mutate({
+                variables: values
+            });
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+
+        }
         return null;
     }
     render() {

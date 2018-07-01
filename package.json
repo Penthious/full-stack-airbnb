@@ -18,6 +18,7 @@
         ]
     },
     "scripts": {
+        "build:app": "lerna run build --scope={@airbnb-clone/controller,@airbnb-clone/common}",
         "build:server": "lerna run build --scope={@airbnb-clone/common,@airbnb-clone/server}",
         "build:web": "lerna run build --scope={@airbnb-clone/controller,@airbnb-clone/common,@airbnb-clone/web}",
         "deploy:server": "./server-deploy.sh",
@@ -26,7 +27,9 @@
         "docker:build-web": "sudo docker build -t penthious/airbnb-clone_web:latest .",
         "docker:push-server": "sudo docker push penthious/airbnb-clone_server:latest",
         "docker:push-web": "sudo docker push penthious/airbnb-clone_web:latest",
-        "start": "yarn docker:build && sudo docker-compose up"
+        "start": "yarn docker:build && sudo docker-compose up",
+        "start:app": "cd packages/app && yarn start",
+        "rebuild": "rm -rf node_modules && cd packages/app && rm -rf node_modules && cd ../.. && yarn"
     },
     "devDependencies": {
         "lerna": "^2.11.0"
