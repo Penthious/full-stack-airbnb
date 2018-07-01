@@ -9,6 +9,8 @@
             "**/react-native/**",
             "**/expo",
             "**/expo/**",
+            "**/react-native-elements",
+            "**/react-native-elements/**",
             "**/react-native-typescript-transformer",
             "**/react-native-typescript-transformer/**",
             "**/metro-bundler-config-yarn-workspaces",
