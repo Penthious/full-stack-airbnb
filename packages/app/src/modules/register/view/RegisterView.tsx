@@ -1,8 +1,9 @@
 import * as React from "react";
+import { Button, Card, Text } from "react-native-elements";
 import { PureComponent } from "react";
-import { View, Button } from "react-native";
+import { View } from "react-native";
 import { registerUserSchema } from "@airbnb-clone/common";
-import { withFormik, FormikErrors, FormikValues, FormikProps, Field } from "formik";
+import { Field, FormikErrors, FormikProps, FormikValues, withFormik } from "formik";
 
 import { InputField } from '../../shared/InputField';
 
@@ -21,19 +22,25 @@ export class RegisterView extends PureComponent<
   render() {
     const { handleSubmit } = this.props;
     return (
-      <View style={{ marginTop: 200 }}>
-        <Field
-          name="email"
-          placeholder="Email"
-          component={InputField}
-        />
-        <Field
-          name="password"
-          secureTextEntry={true}
-          placeholder="Password"
-          component={InputField}
-        />
-        <Button title="submit" onPress={handleSubmit as any} />
+      <View style={{ flex: 1, display: 'flex', justifyContent: "center" }}>
+        <Card>
+          <Text style={{ fontSize: 30, marginBottom: 10 }}> Register</Text>
+          <Field
+            name="email"
+            placeholder="Email"
+            component={InputField}
+            containerStyle={{ width: '100%' }}
+            autoCapitalize="none"
+          />
+          <Field
+            name="password"
+            secureTextEntry={true}
+            placeholder="Password"
+            component={InputField}
+            containerStyle={{ width: '100%' }}
+          />
+          <Button buttonStyle={{ marginTop: 30 }} title="submit" onPress={handleSubmit as any} />
+        </Card>
       </View>
     );
   }
