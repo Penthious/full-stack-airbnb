@@ -21,6 +21,7 @@
         "build:app": "lerna run build --scope={@airbnb-clone/controller,@airbnb-clone/common}",
         "build:server": "lerna run build --scope={@airbnb-clone/common,@airbnb-clone/server}",
         "build:web": "lerna run build --scope={@airbnb-clone/controller,@airbnb-clone/common,@airbnb-clone/web}",
+        "deploy:site": "yarn deploy:server && yarn deploy:web",
         "deploy:server": "./server-deploy.sh",
         "deploy:web": "./web-deploy.sh",
         "docker:build-server": "sudo docker build -t penthious/airbnb-clone_server:latest .",

@@ -60,25 +60,21 @@ var Login = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(values, this.props);
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
+                        _a.trys.push([0, 2, , 3]);
                         return [4 /*yield*/, this.props.mutate({
                                 variables: values
                             })];
-                    case 2:
+                    case 1:
                         login = (_a.sent()).data.login;
                         if (login) {
-                            console.log(login);
                             return [2 /*return*/, normalizeErrors(login)];
                         }
-                        return [3 /*break*/, 4];
-                    case 3:
+                        return [3 /*break*/, 3];
+                    case 2:
                         error_1 = _a.sent();
                         console.log(error_1, 'we are here');
-                        return [3 /*break*/, 4];
-                    case 4: return [2 /*return*/, null];
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/, null];
                 }
             });
         }); };
@@ -90,7 +86,6 @@ var Login = /** @class */ (function (_super) {
     return Login;
 }(PureComponent));
 var loginMutation = gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  mutation LoginMutation($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      path\n      message\n    }\n  }\n"], ["\n  mutation LoginMutation($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n      path\n      message\n    }\n  }\n"])));
-console.log(loginMutation);
 export var LoginController = graphql(loginMutation)(Login);
 var templateObject_1;
 //# sourceMappingURL=index.js.map
