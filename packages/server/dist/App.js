@@ -79,7 +79,7 @@ let App = class App {
             username: this.graphqlServerConfig.$database_username,
             password: this.graphqlServerConfig.$database_password,
             database: this.graphqlServerConfig.$database_name,
-            entities: ["src/entity/**/*.ts"],
+            entities: [path_1.join(__dirname, './entity/**/*.ts')],
             migrations: ["src/migration/**/*.ts"],
             subscribers: ["src/subscriber/**/*.ts"],
         };

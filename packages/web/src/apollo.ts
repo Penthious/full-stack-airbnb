@@ -20,7 +20,7 @@ export const client = new ApolloClient({
     }),
     new HttpLink({
       uri: process.env.REACT_APP_SERVER_URL,
-      credentials: "same-origin",
+      credentials: "include",
     }),
   ]),
   cache: new InMemoryCache(),

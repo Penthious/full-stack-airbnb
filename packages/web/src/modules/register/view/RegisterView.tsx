@@ -5,6 +5,7 @@ import { withFormik, FormikErrors, FormikValues, FormikProps, Field } from "form
 import { registerUserSchema } from "@airbnb-clone/common";
 import { InputField } from "../../shared/InputField";
 import { SubmitButton } from "../../shared/SubmitButton";
+import { Link } from "react-router-dom";
 
 interface FormValues {
   email: string;
@@ -32,6 +33,7 @@ export class RegisterView extends PureComponent<
           <Field
             name="password"
             placeholder="Password"
+            type="password"
             prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} /> as any}
             component={InputField}
           />
@@ -50,7 +52,7 @@ export class RegisterView extends PureComponent<
               component={SubmitButton}
             />
             <Form.Item>
-              Or <a href="">Login now!</a>
+              Or <Link to="/login">Login now!</Link>
             </Form.Item>
           </Form.Item>
         </div>

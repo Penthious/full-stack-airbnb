@@ -1,12 +1,14 @@
-import * as React from "react";
+import * as React from 'react';
 import { NativeRouter, Route, Switch } from 'react-router-native';
 
-import { RegisterConnector } from '../modules/register/RegisterConnector'
+import { LoginConnector } from "../modules/login/LoginConnector";
+// import { RegisterConnector } from '../modules/register/RegisterConnector'
 
 export const Routes = () => (
-    <NativeRouter>
+    <NativeRouter initialEntries={['/login']}>
         <Switch>
-            <Route exact={true} patch="/" component={RegisterConnector} />
+            {/* <Route exact={true} patch='/register' component={RegisterConnector} /> */}
+            <Route exact={true} patch='/login' component={LoginConnector} />
         </Switch>
     </NativeRouter>
 )

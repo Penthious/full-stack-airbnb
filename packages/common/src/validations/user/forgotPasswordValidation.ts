@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import { missingPasswordKeyError } from "../errorMessages/forgotPasswordErrors";
+import { missingPasswordKeyError } from "../../errorMessages/forgotPasswordErrors";
 import { passwordValidation } from "./registerValidation";
 
 export const newPasswordKeyValidation = yup

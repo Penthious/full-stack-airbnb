@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const yup = require("yup");
-const registerErrors_1 = require("../errorMessages/registerErrors");
+const registerErrors_1 = require("../../errorMessages/registerErrors");
 exports.emailValidation = yup
     .string()
     .min(3, registerErrors_1.emailNotLongEnough)

@@ -1,2 +1,3 @@
-export * from "./registerValidation";
-export * from "./forgotPasswordValidation";
+export * from "./user/registerValidation";
+export * from "./user/forgotPasswordValidation";
+export * from "./user/loginValidation";

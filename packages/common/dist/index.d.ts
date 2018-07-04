@@ -1,2 +1,2 @@
-export * from "./errorMessages/index";
-export * from "./validations/index";
+export * from "./errorMessages";
+export * from "./validations";

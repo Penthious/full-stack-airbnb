@@ -27,8 +27,9 @@
         "docker:build-web": "sudo docker build -t penthious/airbnb-clone_web:latest .",
         "docker:push-server": "sudo docker push penthious/airbnb-clone_server:latest",
         "docker:push-web": "sudo docker push penthious/airbnb-clone_web:latest",
-        "start": "yarn docker:build && sudo docker-compose up",
+        "start": "sudo docker-compose up --build",
         "start:app": "cd packages/app && yarn start",
+        "start:web": "cd packages/web && yarn start",
         "rebuild": "rm -rf node_modules && cd packages/app && rm -rf node_modules && cd ../.. && yarn"
     },
     "devDependencies": {

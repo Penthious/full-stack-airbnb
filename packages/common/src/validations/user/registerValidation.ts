@@ -6,7 +6,7 @@ import {
   emailRequired,
   passwordNotLongEnough,
   passwordRequired,
-} from "../errorMessages/registerErrors";
+} from "../../errorMessages/registerErrors";
 
 export const emailValidation = yup
   .string()
