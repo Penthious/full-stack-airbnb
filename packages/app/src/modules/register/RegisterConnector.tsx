@@ -1,16 +1,16 @@
-import * as React from 'react';
-import { PureComponent } from 'react';
-import RegisterView from '../register/view/RegisterView';
+import * as React from "react";
+import { PureComponent } from "react";
+import RegisterView from "../register/view/RegisterView";
+import { RegisterController } from "@airbnb-clone/controller";
 
 export class RegisterConnector extends PureComponent {
-    dummySubmit = async (values: any) => {
-        console.log(values);
-
-        return null;
-    }
-    render() {
-        return (<RegisterView submit={this.dummySubmit} />)
-    }
+  render() {
+    return (
+      <RegisterController>
+        {({ submit }) => <RegisterView submit={submit} />}
+      </RegisterController>
+    );
+  }
 }
 
 export default RegisterConnector;
