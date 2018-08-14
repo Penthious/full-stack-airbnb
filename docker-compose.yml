@@ -3,9 +3,9 @@ services:
   db:
     image: postgres
     ports: 
-      - "5432:5432"
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - "5433:5432"
+    # volumes:
+      # - ./pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: airbnb_clone
       POSTGRES_PASSWORD: postgres
@@ -18,7 +18,7 @@ services:
     build: .
     working_dir: /airbnb/packages/server
     # command: yarn start
-    command: bash -c "ls -la && yarn && ./node_modules/.bin/nodemon -e ts -w ../../ -x ./node_modules/.bin/ts-node src/index.ts"
+    command: bash -c "yarn && ./node_modules/.bin/nodemon --watch ./src --exec ./node_modules/.bin/ts-node src/index.ts"
     environment:
       DATABASE_HOST: db
       DATABASE_NAME: airbnb_clone
@@ -33,7 +33,8 @@ services:
       - db
       - redis
     volumes:
-      - ./files:/app/files
+      - ./files:/airbnb/files
+      - .:/airbnb
     links: 
       - db
   # web:
@@ -45,5 +46,3 @@ services:
   #     - ./package.json:/airbnb/packages/web/src/package.json
   #   ports: 
   #     - "3000:3000"
-    
-      

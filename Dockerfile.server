@@ -15,10 +15,8 @@ COPY ./packages/server/.env-production ./packages/server
 COPY ./packages/common/dist ./packages/common/dist
 
 WORKDIR ./packages/server
-RUN cat .env-production
 
 ENV NODE_ENV=production
-RUN ls -la
 
 EXPOSE 4000
 
