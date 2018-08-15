@@ -38,6 +38,14 @@ export default class Login {
           message: invalidLogin,
         },
       ];
+      return {
+        errors: [
+          {
+            path: "email/password",
+            message: invalidLogin,
+          },
+        ],
+      };
     }
     if (!user.confirmed) {
       return [
@@ -46,6 +54,14 @@ export default class Login {
           message: confirmEmailError,
         },
       ];
+      return {
+        errors: [
+          {
+            path: "email",
+            message: confirmEmailError,
+          },
+        ],
+      };
     }
 
     if (user.accountLocked) {
@@ -55,6 +71,14 @@ export default class Login {
           message: accountLocked,
         },
       ];
+      return {
+        errors: [
+          {
+            path: "email",
+            message: accountLocked,
+          },
+        ],
+      };
     }
 
     session.userId = user.id;
@@ -69,5 +93,6 @@ export default class Login {
     }
 
     return null;
+    return { sessionId: request.sessionID };
   }
 }
