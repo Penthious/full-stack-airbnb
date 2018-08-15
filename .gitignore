@@ -8,3 +8,4 @@ dump.rdb
 .env
 packages/server/dist
 pgdata
+dist
