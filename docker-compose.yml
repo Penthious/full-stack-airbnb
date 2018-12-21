@@ -2,10 +2,10 @@ version: "3"
 services:
   db:
     image: postgres
-    ports: 
+    ports:
       - "5433:5432"
     # volumes:
-      # - ./pgdata:/var/lib/postgresql/data
+    # - ./pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: airbnb_clone
       POSTGRES_PASSWORD: postgres
@@ -34,15 +34,14 @@ services:
       - redis
     volumes:
       - ./files:/airbnb/files
-      - .:/airbnb
-    links: 
+      - .:/airbnb_server
+    links:
       - db
   # web:
   #   build: .
-  #   working_dir: /airbnb/packages/web
-  #   command: bash -c "cd src && ls -la && cd .. && yarn && yarn start"
+  #   working_dir: /airbnb
+  #   command: bash -c "yarn && yarn start:web"
   #   volumes:
-  #     - ./src:/airbnb/packages/web/src
-  #     - ./package.json:/airbnb/packages/web/src/package.json
-  #   ports: 
+  #     - .:/airbnb_web
+  #   ports:
   #     - "3000:3000"

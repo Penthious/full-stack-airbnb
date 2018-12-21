@@ -1,7 +1,13 @@
 import * as React from "react";
 import { Form, Icon } from "antd";
 import { PureComponent } from "react";
-import { withFormik, FormikErrors, FormikValues, FormikProps, Field } from "formik";
+import {
+  withFormik,
+  FormikErrors,
+  FormikValues,
+  FormikProps,
+  Field,
+} from "formik";
 import { registerUserSchema } from "@airbnb-clone/common";
 import { InputField } from "../../shared/InputField";
 import { SubmitButton } from "../../shared/SubmitButton";
@@ -17,7 +23,7 @@ interface Props {
 
 export class RegisterView extends PureComponent<
   FormikProps<FormValues> & Props
-  > {
+> {
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -26,13 +32,17 @@ export class RegisterView extends PureComponent<
           <Field
             name="email"
             placeholder="Email"
-            prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} /> as any}
+            prefix={
+              <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} /> as any
+            }
             component={InputField}
           />
           <Field
             name="password"
             placeholder="Password"
-            prefix={<Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} /> as any}
+            prefix={
+              <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} /> as any
+            }
             component={InputField}
           />
           <Form.Item>
