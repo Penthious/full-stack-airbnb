@@ -8,6 +8,7 @@
     "build": "rimraf ./dist && npm run gen:types && tsc",
     "codegen:generate": "apollo codegen:generate --queries=./src/**/*.tsx --schema=./schema.json --target=typescript --outputFlat=./src/generatedTypes.ts",
     "codegen": "apollo codegen:generate",
+    "fresh": "rm -rf ./node_modules",
     "gen:types": "npm run schema:download && npm run codegen:generate",
     "schema:download": "apollo schema:download --endpoint=http://localhost:4000/graphql"
   },

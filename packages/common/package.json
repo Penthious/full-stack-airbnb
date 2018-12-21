@@ -6,13 +6,14 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "rimraf ./dist && tsc"
+    "build": "rimraf ./dist && tsc",
+    "fresh": "rimraf ./node_modules"
   },
   "dependencies": {
-    "yup": "^0.25.1"
+    "yup": "^0.26.0"
   },
   "devDependencies": {
-    "@types/yup": "^0.24.7",
+    "@types/yup": "^0.26.0",
     "tslint": "^5.10.0",
     "tslint-config-prettier": "^1.13.0",
     "rimraf": "^2.6.2",

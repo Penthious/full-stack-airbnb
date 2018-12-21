@@ -7,6 +7,7 @@
   "scripts": {
     "build": "rimraf ./dist && tsc && copyfiles -u 1 src/**/*.graphql dist",
     "gen-schema-types": "ts-node -r dotenv/config src/scripts/createTypes.ts",
+    "fresh": "rm -rf ./node_modules",
     "start": "cross-env NODE_ENV=develop nodemon --exec ts-node src/index.ts",
     "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles --verbose --forceExit"
   },
@@ -33,7 +34,7 @@
     "@types/uuid": "^3.4.3",
     "@types/winston": "^2.3.9",
     "@types/ws": "^5.1.2",
-    "@types/yup": "^0.24.7",
+    "@types/yup": "^0.26.0",
     "copyfiles": "^2.0.0",
     "gql2ts": "^1.8.0",
     "jest": "^23.1.0",
@@ -81,7 +82,7 @@
     "typescript-ioc": "^1.2.4",
     "uuid": "^3.2.1",
     "winston": "^3.0.0",
-    "yup": "^0.25.1"
+    "yup": "^0.26.0"
   },
   "jest": {
     "globalSetup": "./src/testSetup/callSetup.js",

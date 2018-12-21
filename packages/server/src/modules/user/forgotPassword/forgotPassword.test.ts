@@ -41,7 +41,10 @@ describe("forgot password", () => {
   test("Can change users password", async () => {
     expect(await client.login(this.user.email, password)).toEqual({
       data: {
-        login: [{ path: "email", message: accountLocked }],
+        login: {
+          errors: [{ message: accountLocked, path: "email" }],
+          sessionId: null,
+        },
       },
     });
 
@@ -51,9 +54,12 @@ describe("forgot password", () => {
       forgotPasswordUpdate: null,
     });
 
-    expect(await client.login(this.user.email, newPassword)).toEqual({
+    expect(await client.login(this.user.email, newPassword)).toMatchObject({
       data: {
-        login: null,
+        login: {
+          errors: null,
+          sessionId: expect.any(String),
+        },
       },
     });
 

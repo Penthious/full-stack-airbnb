@@ -2,6 +2,7 @@ import { Container } from "typescript-ioc";
 
 import App from "../../../App";
 import TestClient from "../../../testSetup/testCLient";
+import { try } from "bluebird";
 
 const app: App = Container.get(App);
 const client2: TestClient = Container.get(TestClient);
@@ -36,9 +37,16 @@ describe("multiple sessions", () => {
 
 describe("single session", () => {
   test("Can logout current user", async () => {
+    console.log("============================");
+
+    console.log("here");
+
+    try{
     const data = await client.login(email, password);
     console.log(data.data.login);
     // await client2.login(email, password);
+    console.log("============================");
+    console.log("============================");
 
     const response = await client.me();
     expect(response.data.me).toBeTruthy();
@@ -47,6 +55,20 @@ describe("single session", () => {
 
     const response2 = await client.me();
     expect(response2.data.me).toBeNull();
+    console.log("============================");
+    console.log("============================");
+    console.log("============================");
+    }catch(error){
+    console.log("============================");
+    console.log("============================");
+    console.log("============================");
+    console.log(error['error'].errors);
+    
+    console.log("============================");
+    console.log("============================");
+    console.log("============================");
+
+    }
 
     // const response3 = await client2.me();
     // expect(response3.data.me).toBeTruthy();

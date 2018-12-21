@@ -10,8 +10,11 @@ export const forgotPasswordMutation = (newPassword: string, key: string) => `
 export const loginMutation = (email: string, password: string) => `
   mutation {
     login(email: "${email}", password: "${password}"){
-      path
-      message
+      errors {
+        path
+        message
+      }
+      sessionId
     }
   }
   `;

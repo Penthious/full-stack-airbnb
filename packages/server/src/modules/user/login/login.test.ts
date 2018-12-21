@@ -26,12 +26,15 @@ describe("login", () => {
       "no_user@false.com",
       "hey I am password",
     )) as LOGIN.loginError;
-    expect(response.data.login).toEqual([
-      {
-        path: "email/password",
-        message: invalidLogin,
-      },
-    ]);
+    expect(response.data.login).toEqual({
+      errors: [
+        {
+          path: "email/password",
+          message: invalidLogin,
+        },
+      ],
+      sessionId: null,
+    });
   });
 
   test("fails if user is found but password is wrong", async () => {
@@ -40,29 +43,41 @@ describe("login", () => {
       "FAIL_PASSWORD",
     )) as LOGIN.loginError;
 
-    expect(response.data.login).toEqual([
-      {
-        path: "email/password",
-        message: invalidLogin,
-      },
-    ]);
+    expect(response.data.login).toEqual({
+      errors: [
+        {
+          path: "email/password",
+          message: invalidLogin,
+        },
+      ],
+      sessionId: null,
+    });
   });
 
   test("fails if user logs in correctly but confirmed is false", async () => {
     await User.update({ email }, { confirmed: false });
     const response = (await client.login(email, password)) as LOGIN.loginError;
 
-    expect(response.data.login).toEqual([
-      {
-        path: "email",
-        message: confirmEmailError,
-      },
-    ]);
+    expect(response.data.login).toEqual({
+      errors: [
+        {
+          path: "email",
+          message: confirmEmailError,
+        },
+      ],
+      sessionId: null,
+    });
   });
 
   test("User can login", async () => {
     await User.update({ email }, { confirmed: true });
-    const response = (await client.login(email, password)) as LOGIN.login;
-    expect(response.data.login).toEqual(null);
+    expect(await client.login(email, password)).toMatchObject({
+      data: {
+        login: {
+          errors: null,
+          sessionId: expect.any(String),
+        },
+      },
+    });
   });
 });
