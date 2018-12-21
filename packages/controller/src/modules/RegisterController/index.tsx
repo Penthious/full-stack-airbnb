@@ -1,6 +1,8 @@
 import gql from "graphql-tag";
-import { PureComponent, ComponentClass } from "react";
 import { ChildMutateProps, graphql } from "react-apollo";
+import { PureComponent, ComponentClass } from "react";
+
+import { normalizeErrors } from "../utils/normalizeErrors";
 import {
   RegisterMutationVariables,
   RegisterMutation,
@@ -8,7 +10,11 @@ import {
 
 interface Props {
   children: (
-    data: { submit: (values: RegisterMutationVariables) => Promise<null> },
+    data: {
+      submit: (
+        values: RegisterMutationVariables,
+      ) => Promise<{ [key: string]: string } | null>;
+    },
   ) => JSX.Element | null;
 }
 
@@ -17,10 +23,16 @@ class Register extends PureComponent<
 > {
   submit = async (values: RegisterMutationVariables) => {
     console.log(values, this.props);
-    const response = await this.props.mutate({
+    const {
+      data: { register },
+    } = await this.props.mutate({
       variables: values,
     });
-    console.log(response);
+    console.log(register);
+    if (register) {
+      return normalizeErrors(register);
+    }
+
     return null;
   };
   render() {

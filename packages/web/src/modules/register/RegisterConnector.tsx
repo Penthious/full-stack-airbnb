@@ -1,9 +1,8 @@
 import * as React from "react";
 import { PureComponent } from "react";
+import { RegisterController } from "@airbnb-clone/controller";
+
 import RegisterView from "./view/RegisterView";
-import {
-  RegisterController
-} from "@airbnb-clone/controller"
 
 export class RegisterConnector extends PureComponent {
   render() {
@@ -11,7 +10,7 @@ export class RegisterConnector extends PureComponent {
       <RegisterController>
         {({ submit }) => <RegisterView submit={submit} />}
       </RegisterController>
-    )
+    );
   }
 }
 

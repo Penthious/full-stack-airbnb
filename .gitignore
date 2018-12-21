@@ -9,3 +9,4 @@ dump.rdb
 packages/server/dist
 pgdata
 dist
+lerna-debug.log

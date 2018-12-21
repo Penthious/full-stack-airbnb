@@ -2,8 +2,8 @@ import * as React from "react";
 import { Form, Icon } from "antd";
 import { Link } from "react-router-dom";
 import { PureComponent } from "react";
+import { loginSchema } from "@airbnb-clone/common";
 import { withFormik, FormikProps, Field } from "formik";
-import { registerUserSchema } from "@airbnb-clone/common";
 
 import { InputField } from "../../shared/InputField";
 import { SubmitButton } from "../../shared/SubmitButton";
@@ -17,9 +17,7 @@ interface Props {
   submit: (values: FormValues) => Promise<{ [key: string]: string } | null>;
 }
 
-export class RegisterView extends PureComponent<
-  FormikProps<FormValues> & Props
-> {
+export class LoginView extends PureComponent<FormikProps<FormValues> & Props> {
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -53,11 +51,11 @@ export class RegisterView extends PureComponent<
               type="primary"
               htmlType="submit"
               className="login-form-button"
-              text="Register"
+              text="Login"
               component={SubmitButton}
             />
             <Form.Item>
-              Or <Link to="/login">Login now!</Link>
+              Or <Link to="/register">register</Link>
             </Form.Item>
           </Form.Item>
         </div>
@@ -67,7 +65,7 @@ export class RegisterView extends PureComponent<
 }
 
 export default withFormik<Props, FormValues>({
-  validationSchema: registerUserSchema,
+  validationSchema: loginSchema,
   mapPropsToValues: () => ({ email: "", password: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
@@ -75,4 +73,4 @@ export default withFormik<Props, FormValues>({
       setErrors(errors);
     }
   },
-})(RegisterView);
+})(LoginView);
