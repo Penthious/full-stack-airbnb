@@ -32,12 +32,6 @@ export default class Login {
     const user = await this.userService.findOne({ email });
 
     if (!user || !(await compare(password, user.password))) {
-      return [
-        {
-          path: "email/password",
-          message: invalidLogin,
-        },
-      ];
       return {
         errors: [
           {
@@ -48,12 +42,6 @@ export default class Login {
       };
     }
     if (!user.confirmed) {
-      return [
-        {
-          path: "email",
-          message: confirmEmailError,
-        },
-      ];
       return {
         errors: [
           {
@@ -65,12 +53,6 @@ export default class Login {
     }
 
     if (user.accountLocked) {
-      return [
-        {
-          path: "email",
-          message: accountLocked,
-        },
-      ];
       return {
         errors: [
           {
@@ -92,7 +74,6 @@ export default class Login {
       );
     }
 
-    return null;
     return { sessionId: request.sessionID };
   }
 }

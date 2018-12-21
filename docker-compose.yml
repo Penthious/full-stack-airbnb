@@ -17,8 +17,8 @@ services:
   api:
     build: .
     working_dir: /airbnb/packages/server
-    # command: yarn start
-    command: bash -c "yarn && ./node_modules/.bin/nodemon --watch ./src --exec ./node_modules/.bin/ts-node src/index.ts"
+    # command: bash -c "yarn && ./node_modules/.bin/nodemon --watch ./src --exec ./node_modules/.bin/ts-node src/index.ts"
+    command: bash -c "yarn && ./../../node_modules/.bin/nodemon -e ts -w ./ -x ./../../node_modules/.bin/ts-node ./src/index.ts"
     environment:
       DATABASE_HOST: db
       DATABASE_NAME: airbnb_clone
@@ -34,7 +34,7 @@ services:
       - redis
     volumes:
       - ./files:/airbnb/files
-      - .:/airbnb_server
+      - .:/airbnb
     links:
       - db
   # web:

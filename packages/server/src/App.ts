@@ -30,12 +30,15 @@ export default class App {
   private redisStore = connectRedis(session);
 
   constructor(@Inject private graphqlServerConfig: GraphqlServerConfig) {
-    if (this.graphqlServerConfig.$env === 'production') {
-      this.redis = new Redis(process.env.REDIS_URL) // @todo: extract this to config
+    if (this.graphqlServerConfig.$env === "production") {
+      this.redis = new Redis(process.env.REDIS_URL); // @todo: extract this to config
     } else {
-      this.redis = this.graphqlServerConfig.$redis_port ? new Redis({
-        port: this.graphqlServerConfig.$redis_port, host: this.graphqlServerConfig.$redis_host
-      }) : new Redis();
+      this.redis = this.graphqlServerConfig.$redis_port
+        ? new Redis({
+            port: this.graphqlServerConfig.$redis_port,
+            host: this.graphqlServerConfig.$redis_host,
+          })
+        : new Redis();
     }
   }
 
@@ -89,14 +92,14 @@ export default class App {
       entities: ["src/entity/**/*.ts"],
       migrations: ["src/migration/**/*.ts"],
       subscribers: ["src/subscriber/**/*.ts"],
-    }
-    if (this.graphqlServerConfig.$env === 'production') {
+    };
+    if (this.graphqlServerConfig.$env === "production") {
       configData = {
         url: process.env.DATABASE_URL, // @todo: extract this to config
-        entities: [join(__dirname, './entity/**/*.js')],
+        entities: [join(__dirname, "./entity/**/*.js")],
         migrations: ["./migration/**/*.js"],
         subscribers: ["./subscriber/**/*.js"],
-      } as any
+      } as any;
     }
     const config = {
       name: "default",
@@ -187,8 +190,7 @@ export default class App {
         "ERROR",
         `${this._name}#createServer`,
         {
-          message:
-            "There seems to have been an issue creating the server",
+          message: "There seems to have been an issue creating the server",
           error: error.message,
         },
         "SECURITY_HIGH",

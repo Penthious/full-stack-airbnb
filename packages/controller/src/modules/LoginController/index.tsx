@@ -6,6 +6,7 @@ import { LoginMutation, LoginMutationVariables } from "../../generatedTypes";
 import { normalizeErrors } from "../utils/normalizeErrors";
 
 interface Props {
+  onSessionId?: (sessionId: string) => void;
   children: (
     data: {
       submit: (
@@ -23,14 +24,20 @@ class Login extends PureComponent<
   submit = async (values: LoginMutationVariables) => {
     console.log(values);
     const {
-      data: { login },
+      data: {
+        login: { errors, sessionId },
+      },
     } = await this.props.mutate({
       variables: values,
     });
-    console.log("response: ", login);
+    console.log("response id: ", sessionId);
+    console.log("response errors: ", errors);
 
-    if (login) {
-      return normalizeErrors(login);
+    if (errors) {
+      return normalizeErrors(errors);
+    }
+    if (sessionId && this.props.onSessionId) {
+      this.props.onSessionId(sessionId);
     }
 
     return null;
@@ -44,8 +51,11 @@ class Login extends PureComponent<
 const loginMutation = gql`
   mutation LoginMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      path
-      message
+      errors {
+        path
+        message
+      }
+      sessionId
     }
   }
 `;

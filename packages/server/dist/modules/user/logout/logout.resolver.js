@@ -35,6 +35,7 @@ let Logout = class Logout {
         return __awaiter(this, void 0, void 0, function* () {
             const { userId } = session;
             if (userId && multi) {
+                console.log("test");
                 yield this.sessionService.removeAllUserSessions(userId, redis);
             }
             else if (userId && !multi) {

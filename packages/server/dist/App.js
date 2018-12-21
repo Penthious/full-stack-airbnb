@@ -45,13 +45,16 @@ let App = class App {
         this._name = "graphql_server.App";
         this.logger = typescript_ioc_1.Container.get(Logger_1.default);
         this.redisStore = connectRedis(session);
-        if (this.graphqlServerConfig.$env === 'production') {
+        if (this.graphqlServerConfig.$env === "production") {
             this.redis = new Redis(process.env.REDIS_URL);
         }
         else {
-            this.redis = this.graphqlServerConfig.$redis_port ? new Redis({
-                port: this.graphqlServerConfig.$redis_port, host: this.graphqlServerConfig.$redis_host
-            }) : new Redis();
+            this.redis = this.graphqlServerConfig.$redis_port
+                ? new Redis({
+                    port: this.graphqlServerConfig.$redis_port,
+                    host: this.graphqlServerConfig.$redis_host,
+                })
+                : new Redis();
         }
     }
     start() {
@@ -83,10 +86,10 @@ let App = class App {
             migrations: ["src/migration/**/*.ts"],
             subscribers: ["src/subscriber/**/*.ts"],
         };
-        if (this.graphqlServerConfig.$env === 'production') {
+        if (this.graphqlServerConfig.$env === "production") {
             configData = {
                 url: process.env.DATABASE_URL,
-                entities: [path_1.join(__dirname, './entity/**/*.js')],
+                entities: [path_1.join(__dirname, "./entity/**/*.js")],
                 migrations: ["./migration/**/*.js"],
                 subscribers: ["./subscriber/**/*.js"],
             };

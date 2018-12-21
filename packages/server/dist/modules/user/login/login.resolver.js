@@ -40,35 +40,41 @@ let Login = class Login {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.userService.findOne({ email });
             if (!user || !(yield bcryptjs_1.compare(password, user.password))) {
-                return [
-                    {
-                        path: "email/password",
-                        message: errorMessages_1.invalidLogin,
-                    },
-                ];
+                return {
+                    errors: [
+                        {
+                            path: "email/password",
+                            message: errorMessages_1.invalidLogin,
+                        },
+                    ],
+                };
             }
             if (!user.confirmed) {
-                return [
-                    {
-                        path: "email",
-                        message: errorMessages_1.confirmEmailError,
-                    },
-                ];
+                return {
+                    errors: [
+                        {
+                            path: "email",
+                            message: errorMessages_1.confirmEmailError,
+                        },
+                    ],
+                };
             }
             if (user.accountLocked) {
-                return [
-                    {
-                        path: "email",
-                        message: errorMessages_1.accountLocked,
-                    },
-                ];
+                return {
+                    errors: [
+                        {
+                            path: "email",
+                            message: errorMessages_1.accountLocked,
+                        },
+                    ],
+                };
             }
             session.userId = user.id;
             this.sessionService.$setUser = user;
             if (request.sessionID) {
                 yield redis.lpush(`${constants_1.USER_SESSION_ID_PREFIX}${user.id}`, request.sessionID);
             }
-            return null;
+            return { sessionId: request.sessionID };
         });
     }
 };
