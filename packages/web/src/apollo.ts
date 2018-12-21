@@ -4,6 +4,12 @@ import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import { ApolloLink } from "apollo-link";
 
+console.log("=======================================");
+console.log("=======================================");
+console.log("=======================================");
+console.log("=======================================");
+console.log("=======================================");
+
 export const client = new ApolloClient({
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }) => {
