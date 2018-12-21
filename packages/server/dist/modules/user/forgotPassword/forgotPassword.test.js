@@ -44,7 +44,10 @@ describe("forgot password", () => {
     test("Can change users password", () => __awaiter(this, void 0, void 0, function* () {
         expect(yield client.login(this.user.email, password)).toEqual({
             data: {
-                login: [{ path: "email", message: errorMessages_1.accountLocked }],
+                login: {
+                    errors: [{ message: errorMessages_1.accountLocked, path: "email" }],
+                    sessionId: null,
+                },
             },
         });
         const response = yield client.forgotPasswordUpdate(newPassword, this.key);
@@ -52,9 +55,12 @@ describe("forgot password", () => {
         expect(response.data).toEqual({
             forgotPasswordUpdate: null,
         });
-        expect(yield client.login(this.user.email, newPassword)).toEqual({
+        expect(yield client.login(this.user.email, newPassword)).toMatchObject({
             data: {
-                login: null,
+                login: {
+                    errors: null,
+                    sessionId: expect.any(String),
+                },
             },
         });
         expect(yield client.me()).toEqual({

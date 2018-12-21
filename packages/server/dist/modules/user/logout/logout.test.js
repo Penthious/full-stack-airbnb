@@ -34,8 +34,7 @@ describe("multiple sessions", () => {
 });
 describe("single session", () => {
     test("Can logout current user", () => __awaiter(this, void 0, void 0, function* () {
-        const data = yield client.login(email, password);
-        console.log(data.data.login);
+        yield client.login(email, password);
         const response = yield client.me();
         expect(response.data.me).toBeTruthy();
         yield client.logout(false);

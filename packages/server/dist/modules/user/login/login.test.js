@@ -28,35 +28,50 @@ afterAll((done) => __awaiter(this, void 0, void 0, function* () {
 describe("login", () => {
     test("fails if no user is found", () => __awaiter(this, void 0, void 0, function* () {
         const response = (yield client.login("no_user@false.com", "hey I am password"));
-        expect(response.data.login).toEqual([
-            {
-                path: "email/password",
-                message: errorMessages_1.invalidLogin,
-            },
-        ]);
+        expect(response.data.login).toEqual({
+            errors: [
+                {
+                    path: "email/password",
+                    message: errorMessages_1.invalidLogin,
+                },
+            ],
+            sessionId: null,
+        });
     }));
     test("fails if user is found but password is wrong", () => __awaiter(this, void 0, void 0, function* () {
         const response = (yield client.login(email, "FAIL_PASSWORD"));
-        expect(response.data.login).toEqual([
-            {
-                path: "email/password",
-                message: errorMessages_1.invalidLogin,
-            },
-        ]);
+        expect(response.data.login).toEqual({
+            errors: [
+                {
+                    path: "email/password",
+                    message: errorMessages_1.invalidLogin,
+                },
+            ],
+            sessionId: null,
+        });
     }));
     test("fails if user logs in correctly but confirmed is false", () => __awaiter(this, void 0, void 0, function* () {
         yield User_1.User.update({ email }, { confirmed: false });
         const response = (yield client.login(email, password));
-        expect(response.data.login).toEqual([
-            {
-                path: "email",
-                message: errorMessages_1.confirmEmailError,
-            },
-        ]);
+        expect(response.data.login).toEqual({
+            errors: [
+                {
+                    path: "email",
+                    message: errorMessages_1.confirmEmailError,
+                },
+            ],
+            sessionId: null,
+        });
     }));
     test("User can login", () => __awaiter(this, void 0, void 0, function* () {
         yield User_1.User.update({ email }, { confirmed: true });
-        const response = (yield client.login(email, password));
-        expect(response.data.login).toEqual(null);
+        expect(yield client.login(email, password)).toMatchObject({
+            data: {
+                login: {
+                    errors: null,
+                    sessionId: expect.any(String),
+                },
+            },
+        });
     }));
 });

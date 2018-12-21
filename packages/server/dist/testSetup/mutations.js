@@ -11,8 +11,11 @@ exports.forgotPasswordMutation = (newPassword, key) => `
 exports.loginMutation = (email, password) => `
   mutation {
     login(email: "${email}", password: "${password}"){
-      path
-      message
+      errors {
+        path
+        message
+      }
+      sessionId
     }
   }
   `;
