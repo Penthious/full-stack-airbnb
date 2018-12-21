@@ -5,9 +5,9 @@ export const sendEmail = async (recipient: string, url: string) => {
     host: "smtp.ethereal.email",
     port: 587,
     auth: {
-      user: 'itp7mjq4q7kaf73r@ethereal.email',
-      pass: 'uyF6cbeQrYAEeXaVTB'
-    }
+      user: "kxypsix5u7jbritq@ethereal.email",
+      pass: "VUSEa3QvXNYjn1RhYu",
+    },
   });
 
   const message = {
@@ -15,12 +15,14 @@ export const sendEmail = async (recipient: string, url: string) => {
     to: `Recipient <${recipient}>`,
     subject: "Nodemailer is unicode friendly ✔",
     text: "Hello to myself!",
-    html: `<html>
+    html: `
+      <html>
         <body>
-        <p>Testing nodemailer</p>
-        <a href="${url}">confirm email</a>
+          <p>Testing nodemailer</p>
+          <a href="${url}">confirm email</a>
         </body>
-        </html>`
+      </html>
+    `,
   };
 
   transporter.sendMail(message, (err, info) => {
