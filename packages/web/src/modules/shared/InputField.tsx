@@ -11,7 +11,10 @@ export const InputField: React.SFC<
 }) => {
   const errorCheck = touched[field.name] && errors[field.name];
   return (
-    <Form.Item help={errorCheck} validateStatus={errorCheck && "error"}>
+    <Form.Item
+      help={errorCheck}
+      validateStatus={errorCheck && "error" ? "success" : "error"}
+    >
       <Input {...field} {...props} />
     </Form.Item>
   );
