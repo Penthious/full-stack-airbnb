@@ -2,7 +2,6 @@ import * as React from "react";
 import { Form, Icon } from "antd";
 import { Link } from "react-router-dom";
 import { PureComponent } from "react";
-import { loginSchema } from "@airbnb-clone/common";
 import { withFormik, FormikProps, Field } from "formik";
 
 import { InputField } from "../../shared/InputField";
@@ -11,14 +10,15 @@ import { NormalizedErrorMap } from "@airbnb-clone/controller";
 
 interface FormValues {
   email: string;
-  password: string;
 }
 
 interface Props {
   submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
 }
 
-export class LoginView extends PureComponent<FormikProps<FormValues> & Props> {
+export class ForgotPasswordView extends PureComponent<
+  FormikProps<FormValues> & Props
+> {
   render() {
     const { handleSubmit } = this.props;
     return (
@@ -32,27 +32,13 @@ export class LoginView extends PureComponent<FormikProps<FormValues> & Props> {
             }
             component={InputField}
           />
-          <Field
-            name="password"
-            placeholder="Password"
-            type="password"
-            prefix={
-              <Icon type="lock" style={{ color: "rgba(0,0,0,.25)" }} /> as any
-            }
-            component={InputField}
-          />
           <Form.Item>
-            <Form.Item>
-              <Link to="/forgot-password" className="login-form-forgot">
-                Forgot password
-              </Link>
-            </Form.Item>
             <Field
               name="submit"
               type="primary"
               htmlType="submit"
-              className="login-form-button"
-              text="Login"
+              className="forgotpassword-form-button"
+              text="Reset Password"
               component={SubmitButton}
             />
             <Form.Item>
@@ -66,12 +52,11 @@ export class LoginView extends PureComponent<FormikProps<FormValues> & Props> {
 }
 
 export default withFormik<Props, FormValues>({
-  validationSchema: loginSchema,
-  mapPropsToValues: () => ({ email: "", password: "" }),
+  mapPropsToValues: () => ({ email: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
     if (errors) {
       setErrors(errors);
     }
   },
-})(LoginView);
+})(ForgotPasswordView);

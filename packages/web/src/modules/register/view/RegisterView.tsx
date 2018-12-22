@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Form, Icon } from "antd";
 import { Link } from "react-router-dom";
+import { NormalizedErrorMap } from "@airbnb-clone/controller";
 import { PureComponent } from "react";
-import { withFormik, FormikProps, Field } from "formik";
 import { registerUserSchema } from "@airbnb-clone/common";
+import { withFormik, FormikProps, Field } from "formik";
 
 import { InputField } from "../../shared/InputField";
 import { SubmitButton } from "../../shared/SubmitButton";
@@ -14,7 +15,7 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (values: FormValues) => Promise<{ [key: string]: string } | null>;
+  submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
 }
 
 export class RegisterView extends PureComponent<
@@ -44,9 +45,9 @@ export class RegisterView extends PureComponent<
           />
           <Form.Item>
             <Form.Item>
-              <a className="login-form-forgot" href="">
+              <Link to="/forgot-password" className="login-form-forgot">
                 Forgot password
-              </a>
+              </Link>
             </Form.Item>
             <Field
               name="submit"

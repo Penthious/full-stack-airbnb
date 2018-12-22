@@ -74,16 +74,6 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@7.0.0-beta.38":
-  version "7.0.0-beta.38"
-  resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.0.0-beta.38.tgz#6115a66663e3adfd1d6844029ffb2354680182eb"
-  dependencies:
-    "@babel/types" "7.0.0-beta.38"
-    jsesc "^2.5.1"
-    lodash "^4.2.0"
-    source-map "^0.5.0"
-    trim-right "^1.0.1"
-
 "@babel/generator@7.1.3":
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.1.3.tgz#2103ec9c42d9bdad9190a6ad5ff2d456fd7b8673"
@@ -624,14 +614,6 @@
     debug "^4.1.0"
     globals "^11.1.0"
     lodash "^4.17.10"
-
-"@babel/types@7.0.0-beta.38":
-  version "7.0.0-beta.38"
-  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.38.tgz#2ce2443f7dc6ad535a67db4940cbd34e64035a6f"
-  dependencies:
-    esutils "^2.0.2"
-    lodash "^4.2.0"
-    to-fast-properties "^2.0.0"
 
 "@babel/types@7.2.0":
   version "7.2.0"
@@ -2133,7 +2115,7 @@ apollo-cache-control@^0.1.0:
   dependencies:
     graphql-extensions "^0.0.x"
 
-apollo-cache-inmemory@^1.3.12:
+apollo-cache-inmemory@^1.2.5, apollo-cache-inmemory@^1.3.12:
   version "1.3.12"
   resolved "https://registry.yarnpkg.com/apollo-cache-inmemory/-/apollo-cache-inmemory-1.3.12.tgz#cf7ef7c15730d0b6787d79047d5c06087ac31991"
   dependencies:
@@ -2147,7 +2129,7 @@ apollo-cache@1.1.22, apollo-cache@^1.1.22:
   dependencies:
     apollo-utilities "^1.0.27"
 
-apollo-client@^2.4.8:
+apollo-client@^2.3.5, apollo-client@^2.4.8:
   version "2.4.8"
   resolved "https://registry.yarnpkg.com/apollo-client/-/apollo-client-2.4.8.tgz#3a798f1076243465a59061d44d11bd030b68deb9"
   dependencies:
@@ -2174,22 +2156,6 @@ apollo-codegen-core@0.30.8:
     common-tags "^1.5.1"
     recast "^0.16.0"
 
-apollo-codegen-core@^0.20.0:
-  version "0.20.1"
-  resolved "https://registry.yarnpkg.com/apollo-codegen-core/-/apollo-codegen-core-0.20.1.tgz#56b6dd740f54b3f04e5db853ba1e1598388724c7"
-  dependencies:
-    "@babel/generator" "7.0.0-beta.38"
-    "@babel/types" "7.0.0-beta.38"
-    common-tags "^1.5.1"
-    core-js "^2.5.3"
-    graphql-config "^2.0.1"
-
-apollo-codegen-flow-legacy@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/apollo-codegen-flow-legacy/-/apollo-codegen-flow-legacy-0.20.0.tgz#a9f1a0bb16c0fbde22b7dc7509b835d822861c67"
-  dependencies:
-    apollo-codegen-core "^0.20.0"
-
 apollo-codegen-flow@0.30.8:
   version "0.30.8"
   resolved "https://registry.yarnpkg.com/apollo-codegen-flow/-/apollo-codegen-flow-0.30.8.tgz#c1fbc5be9699eb7249445c56615ceb40e257ba28"
@@ -2197,14 +2163,6 @@ apollo-codegen-flow@0.30.8:
     "@babel/types" "7.2.0"
     apollo-codegen-core "0.30.8"
     apollo-env "0.2.5"
-    change-case "^3.0.1"
-    inflected "^2.0.3"
-
-apollo-codegen-flow@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/apollo-codegen-flow/-/apollo-codegen-flow-0.20.0.tgz#6d6219150235efd74620d421f42d96216292070d"
-  dependencies:
-    apollo-codegen-core "^0.20.0"
     change-case "^3.0.1"
     inflected "^2.0.3"
 
@@ -2217,14 +2175,6 @@ apollo-codegen-scala@0.30.8:
     change-case "^3.0.1"
     inflected "^2.0.3"
 
-apollo-codegen-scala@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/apollo-codegen-scala/-/apollo-codegen-scala-0.20.0.tgz#3ce29057cbb72f47806b27e6b780252dfa4fc349"
-  dependencies:
-    apollo-codegen-core "^0.20.0"
-    change-case "^3.0.1"
-    inflected "^2.0.3"
-
 apollo-codegen-swift@0.30.8:
   version "0.30.8"
   resolved "https://registry.yarnpkg.com/apollo-codegen-swift/-/apollo-codegen-swift-0.30.8.tgz#1225a158ced15bf7b9b15b7df62bbe2c59c4450e"
@@ -2233,20 +2183,6 @@ apollo-codegen-swift@0.30.8:
     apollo-env "0.2.5"
     change-case "^3.0.1"
     inflected "^2.0.3"
-
-apollo-codegen-swift@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/apollo-codegen-swift/-/apollo-codegen-swift-0.20.0.tgz#84a3f7b8d2c0f99fc65fb57acbe0abf9a9932f45"
-  dependencies:
-    apollo-codegen-core "^0.20.0"
-    change-case "^3.0.1"
-    inflected "^2.0.3"
-
-apollo-codegen-typescript-legacy@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/apollo-codegen-typescript-legacy/-/apollo-codegen-typescript-legacy-0.20.0.tgz#e3dab94e6b8f0136f30d92a517c5dfd172452240"
-  dependencies:
-    apollo-codegen-core "^0.20.0"
 
 apollo-codegen-typescript@0.30.8:
   version "0.30.8"
@@ -2257,32 +2193,6 @@ apollo-codegen-typescript@0.30.8:
     apollo-env "0.2.5"
     change-case "^3.0.1"
     inflected "^2.0.3"
-
-apollo-codegen-typescript@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/apollo-codegen-typescript/-/apollo-codegen-typescript-0.20.0.tgz#a77eea6a68c0d09b29855667371bcd836cadfa78"
-  dependencies:
-    apollo-codegen-core "^0.20.0"
-    change-case "^3.0.1"
-    inflected "^2.0.3"
-
-apollo-codegen@^0.20.2:
-  version "0.20.2"
-  resolved "https://registry.yarnpkg.com/apollo-codegen/-/apollo-codegen-0.20.2.tgz#960972828651de74e043f8f92f6f819025a50f49"
-  dependencies:
-    apollo-codegen-core "^0.20.0"
-    apollo-codegen-flow "^0.20.0"
-    apollo-codegen-flow-legacy "^0.20.0"
-    apollo-codegen-scala "^0.20.0"
-    apollo-codegen-swift "^0.20.0"
-    apollo-codegen-typescript "^0.20.0"
-    apollo-codegen-typescript-legacy "^0.20.0"
-    glob "^7.1.2"
-    graphql "^0.13.1"
-    node-fetch "^1.7.3"
-    rimraf "^2.6.2"
-    source-map-support "^0.5.0"
-    yargs "^10.0.3"
 
 apollo-datasource@^0.2.0:
   version "0.2.1"
@@ -2371,7 +2281,7 @@ apollo-link-http-common@^0.2.8:
   dependencies:
     apollo-link "^1.2.6"
 
-apollo-link-http@^1.5.5, apollo-link-http@^1.5.9:
+apollo-link-http@^1.5.4, apollo-link-http@^1.5.5, apollo-link-http@^1.5.9:
   version "1.5.9"
   resolved "https://registry.yarnpkg.com/apollo-link-http/-/apollo-link-http-1.5.9.tgz#9046f5640a94c8a8b508a39e0f2c628b781baecc"
   dependencies:
@@ -7151,16 +7061,6 @@ graphql-config@2.2.1:
     lodash "^4.17.4"
     minimatch "^3.0.4"
 
-graphql-config@^2.0.1:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/graphql-config/-/graphql-config-2.1.0.tgz#f07107ac44b661282d2002497de588f01aa92c9d"
-  dependencies:
-    graphql-import "^0.4.4"
-    graphql-request "^1.5.0"
-    js-yaml "^3.10.0"
-    lodash "^4.17.4"
-    minimatch "^3.0.4"
-
 graphql-deduplicator@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/graphql-deduplicator/-/graphql-deduplicator-2.0.1.tgz#20c6b39e3a6f096b46dfc8491432818739c0ee37"
@@ -7177,12 +7077,6 @@ graphql-extensions@^0.0.x, graphql-extensions@~0.0.9:
   dependencies:
     core-js "^2.5.3"
     source-map-support "^0.5.1"
-
-graphql-import@^0.4.4:
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/graphql-import/-/graphql-import-0.4.5.tgz#e2f18c28d335733f46df8e0733d8deb1c6e2a645"
-  dependencies:
-    lodash "^4.17.4"
 
 graphql-import@^0.7.0, graphql-import@^0.7.1:
   version "0.7.1"
@@ -7276,12 +7170,6 @@ graphql-yoga@^1.16.9:
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.0.2.tgz#7dded337a4c3fd2d075692323384034b357f5650"
   dependencies:
     iterall "^1.2.2"
-
-graphql@^0.13.1:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
-  dependencies:
-    iterall "^1.2.1"
 
 growly@^1.3.0:
   version "1.3.0"
@@ -9555,7 +9443,7 @@ lodash.zipobject@^4.1.3:
   version "4.1.3"
   resolved "https://registry.yarnpkg.com/lodash.zipobject/-/lodash.zipobject-4.1.3.tgz#b399f5aba8ff62a746f6979bf20b214f964dbef8"
 
-"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.13.1, lodash@^4.16.5, lodash@^4.16.6, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1, lodash@~4.17.10:
+"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.13.1, lodash@^4.16.5, lodash@^4.16.6, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1, lodash@~4.17.10:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
@@ -10420,7 +10308,7 @@ node-fetch@2.1.2, node-fetch@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.1.2.tgz#ab884e8e7e57e38a944753cec706f788d1768bb5"
 
-node-fetch@^1.0.1, node-fetch@^1.7.3:
+node-fetch@^1.0.1:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
   dependencies:

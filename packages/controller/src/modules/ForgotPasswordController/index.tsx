@@ -7,7 +7,6 @@ import { normalizeErrors } from "../utils/normalizeErrors";
 import { NormalizedErrorMap } from "../../types/NormalizedErrorMap";
 
 interface Props {
-  onSessionId?: (sessionId: string) => void;
   children: (
     data: {
       submit: (
@@ -17,7 +16,7 @@ interface Props {
   ) => JSX.Element | null;
 }
 
-class Login extends PureComponent<
+class ForgotPassword extends PureComponent<
   ChildMutateProps<Props, LoginMutation, LoginMutationVariables>
 > {
   submit = async (values: LoginMutationVariables) => {
@@ -34,9 +33,6 @@ class Login extends PureComponent<
 
     if (errors) {
       return normalizeErrors(errors);
-    }
-    if (sessionId && this.props.onSessionId) {
-      this.props.onSessionId(sessionId);
     }
 
     return null;
@@ -59,8 +55,8 @@ const loginMutation = gql`
   }
 `;
 
-export const LoginController = graphql<
+export const ForgotPasswordController = graphql<
   Props,
   LoginMutation,
   LoginMutationVariables
->(loginMutation)(Login) as ComponentClass<Props>;
+>(loginMutation)(ForgotPassword) as ComponentClass<Props>;

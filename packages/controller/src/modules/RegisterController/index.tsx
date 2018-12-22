@@ -2,6 +2,7 @@ import gql from "graphql-tag";
 import { ChildMutateProps, graphql } from "react-apollo";
 import { PureComponent, ComponentClass } from "react";
 
+import { NormalizedErrorMap } from "../../types/NormalizedErrorMap";
 import { normalizeErrors } from "../utils/normalizeErrors";
 import {
   RegisterMutationVariables,
@@ -13,7 +14,7 @@ interface Props {
     data: {
       submit: (
         values: RegisterMutationVariables,
-      ) => Promise<{ [key: string]: string } | null>;
+      ) => Promise<NormalizedErrorMap | null>;
     },
   ) => JSX.Element | null;
 }
