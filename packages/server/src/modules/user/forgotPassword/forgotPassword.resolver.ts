@@ -1,13 +1,14 @@
 import { Singleton, Inject } from "typescript-ioc";
 
+import GraphqlServerConfig from "../../../Config";
 import UserService from "../../../services/UserService";
+import { Context, ResolverMap } from "../../../types/graphql-utils";
+import { FORGOT_PASSWORD_PREFIX } from "../../../utils/constants";
 import { createForgotPasswordLink } from "../../../utils/createForgotPasswordLink";
 import { expiredKeyError } from "./errorMessages";
-import { FORGOT_PASSWORD_PREFIX } from "../../../utils/constants";
-import { forgotPasswordLockAccount } from "../../../utils/forgotPasswordLockAccount";
+import { forgotPasswordSchema } from "@airbnb-clone/common";
 import { formatYupError } from "../../../utils/formatYupError";
-import { Context, ResolverMap } from "../../../types/graphql-utils";
-import { forgotPasswordSchema } from "@airbnb-clone/common"
+import { sendEmail } from "../../../utils/sendEmail";
 
 @Singleton
 export default class ForgotPassword {
@@ -20,7 +21,10 @@ export default class ForgotPassword {
     },
   };
 
-  constructor(@Inject private userService: UserService) { }
+  constructor(
+    @Inject private userService: UserService,
+    @Inject private config: GraphqlServerConfig,
+  ) {}
 
   private async _forgotPasswordUpdate(
     _: any,
@@ -28,7 +32,10 @@ export default class ForgotPassword {
     { redis }: Context,
   ) {
     try {
-      await forgotPasswordSchema.validate({ newPassword, key }, { abortEarly: false });
+      await forgotPasswordSchema.validate(
+        { newPassword, key },
+        { abortEarly: false },
+      );
     } catch (err) {
       return formatYupError(err);
     }
@@ -59,13 +66,16 @@ export default class ForgotPassword {
     { redis }: Context,
   ) {
     const user = await this.userService.findOne({ email });
-    // const user = await User.findOne({ where: { email } });
     if (user) {
-      // @todo: add frontend url
-      await forgotPasswordLockAccount(user.id, redis);
-      /* const url = */ await createForgotPasswordLink("", user.id, redis);
-      // await sendForgotPasswordEmail(email, url) // no function yet
-      // @todo: send email with url
+      // await forgotPasswordLockAccount(user.id, redis);
+      const url = await createForgotPasswordLink(
+        this.config.$frontend_host,
+        user.id,
+        redis,
+      );
+
+      await sendEmail(email, url);
+
       return true;
     }
     return false;
