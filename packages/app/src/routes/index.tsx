@@ -7,8 +7,8 @@ import LoginConnector from "../modules/login/LoginConnector";
 export const Routes = () => (
   <NativeRouter>
     <Switch>
-      <Route exact={true} patch="/login" component={LoginConnector} />
       <Route exact={true} patch="/register" component={RegisterConnector} />
+      <Route exact={true} patch="/login" component={LoginConnector} />
     </Switch>
   </NativeRouter>
 );

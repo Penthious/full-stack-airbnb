@@ -1892,11 +1892,12 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-native@^0.55.20":
-  version "0.55.28"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.55.28.tgz#b57d796f6e5ee26ef6fab2328d84ae6f3e67abdf"
-  integrity sha512-z+zcvCFzpSCvySzvk3BMtP/CDudwFmyXyXJyolj/1S9fIhaH5Er6aIP8OfqyA2MGp4qNhGcuBmgewL5+giMqtg==
+"@types/react-native@^0.57.20":
+  version "0.57.20"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.20.tgz#47989838a22c6cb12084ba6e1af8d6e5115374d3"
+  integrity sha512-jZ9AnRxwwVCZhQ6Y6lz8kPkfXIixxzKpkZOSwtN/3s38e3k9EM+ezgLFwgaEBlI0eUXNqHoRUPJSGM3Dr0dADg==
   dependencies:
+    "@types/prop-types" "*"
     "@types/react" "*"
 
 "@types/react-router-dom@^4.2.7":
@@ -1915,9 +1916,17 @@
     "@types/react" "*"
     "@types/react-router" "*"
 
-"@types/react-router@*", "@types/react-router@^4.0.27":
+"@types/react-router@*":
   version "4.0.27"
   resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-4.0.27.tgz#553f54df7c4b09d6046b0201ce9b91c46b2940e3"
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+
+"@types/react-router@^4.4.3":
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-4.4.3.tgz#ea68b4021cb576866f83365b2201411537423d50"
+  integrity sha512-8GmjakEBFNCLJbpg9jtDp1EDvFP0VkIPPKBpVwmB3Q+9whFoHu8rluMUXUE5SoGkEQvVOtgJzWmUsJojNpFMQQ==
   dependencies:
     "@types/history" "*"
     "@types/react" "*"
@@ -2172,7 +2181,7 @@ ansi-cyan@^0.1.1:
   dependencies:
     ansi-wrap "0.1.0"
 
-ansi-escapes@^1.0.0, ansi-escapes@^1.1.0:
+ansi-escapes@^1.0.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-1.4.0.tgz#d3a8a83b319aa67793662b13e761c7911422306e"
 
@@ -3558,14 +3567,6 @@ babel-plugin-transform-strict-mode@^6.24.1:
   dependencies:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
-
-babel-polyfill@6.23.0:
-  version "6.23.0"
-  resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.23.0.tgz#8364ca62df8eafb830499f699177466c3b03499d"
-  dependencies:
-    babel-runtime "^6.22.0"
-    core-js "^2.4.0"
-    regenerator-runtime "^0.10.0"
 
 babel-polyfill@6.26.0:
   version "6.26.0"
@@ -6627,7 +6628,7 @@ extend@~3.0.2:
   resolved "https://registry.yarnpkg.com/extend/-/extend-3.0.2.tgz#f8b1136b4071fbd8eb140aff858b1019ec2915fa"
   integrity sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g==
 
-external-editor@^2.0.1, external-editor@^2.0.4:
+external-editor@^2.0.4:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/external-editor/-/external-editor-2.2.0.tgz#045511cfd8d133f3846673d1047c154e214ad3d5"
   dependencies:
@@ -7008,16 +7009,6 @@ form-data@~2.3.2:
     asynckit "^0.4.0"
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
-
-formik@^0.11.11:
-  version "0.11.11"
-  resolved "https://registry.yarnpkg.com/formik/-/formik-0.11.11.tgz#4b02838133c0196b1ef443aa973766cd097ec4a5"
-  dependencies:
-    lodash.clonedeep "^4.5.0"
-    lodash.isequal "4.5.0"
-    lodash.topath "4.5.2"
-    prop-types "^15.5.10"
-    warning "^3.0.0"
 
 formik@^1.4.1:
   version "1.4.1"
@@ -7646,7 +7637,7 @@ graphql-yoga@^1.16.9:
   dependencies:
     iterall "^1.2.2"
 
-graphql@^0.13.1, graphql@^0.13.2:
+graphql@^0.13.1:
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-0.13.2.tgz#4c740ae3c222823e7004096f832e7b93b2108270"
   dependencies:
@@ -8217,24 +8208,6 @@ init-package-json@^1.10.3:
     semver "2.x || 3.x || 4 || 5"
     validate-npm-package-license "^3.0.1"
     validate-npm-package-name "^3.0.0"
-
-inquirer@3.0.6:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-3.0.6.tgz#e04aaa9d05b7a3cb9b0f407d04375f0447190347"
-  dependencies:
-    ansi-escapes "^1.1.0"
-    chalk "^1.0.0"
-    cli-cursor "^2.1.0"
-    cli-width "^2.0.0"
-    external-editor "^2.0.1"
-    figures "^2.0.0"
-    lodash "^4.3.0"
-    mute-stream "0.0.7"
-    run-async "^2.2.0"
-    rx "^4.1.0"
-    string-width "^2.0.0"
-    strip-ansi "^3.0.0"
-    through "^2.3.6"
 
 inquirer@3.3.0, inquirer@^3.0.6:
   version "3.3.0"
@@ -9911,11 +9884,7 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
-lodash.isempty@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/lodash.isempty/-/lodash.isempty-4.4.0.tgz#6f86cbedd8be4ec987be9aaf33c9684db1b31e7e"
-
-lodash.isequal@4.5.0, lodash.isequal@^4.5.0:
+lodash.isequal@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
 
@@ -9947,6 +9916,11 @@ lodash.mapvalues@^4.6.0:
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
+
+lodash.merge@^4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.1.tgz#adc25d9cb99b9391c59624f379fbba60d7111d54"
+  integrity sha512-AOYza4+Hf5z1/0Hztxpm2/xiPZgi/cjMqdnKTUWTBSKchJlxXXuUSxCCl8rJlf4g6yww/j6mA8nC8Hw/EZWxKQ==
 
 lodash.omit@^4.5.0:
   version "4.5.0"
@@ -9997,10 +9971,6 @@ lodash.throttle@^4.0.0, lodash.throttle@^4.1.1:
 lodash.times@^4.3.2:
   version "4.3.2"
   resolved "https://registry.yarnpkg.com/lodash.times/-/lodash.times-4.3.2.tgz#3e1f2565c431754d54ab57f2ed1741939285ca1d"
-
-lodash.topath@4.5.2:
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/lodash.topath/-/lodash.topath-4.5.2.tgz#3616351f3bba61994a0931989660bd03254fd009"
 
 lodash.uniq@^4.5.0:
   version "4.5.0"
@@ -10666,7 +10636,7 @@ minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
-minimist@1.2.0, minimist@^1.1.0, minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0:
+minimist@^1.1.0, minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
@@ -10907,13 +10877,6 @@ node-fetch-npm@^2.0.2:
     encoding "^0.1.11"
     json-parse-better-errors "^1.0.0"
     safe-buffer "^5.1.1"
-
-node-fetch@1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.6.3.tgz#dc234edd6489982d58e8f0db4f695029abcd8c04"
-  dependencies:
-    encoding "^0.1.11"
-    is-stream "^1.0.1"
 
 node-fetch@2.1.2, node-fetch@^2.1.2:
   version "2.1.2"
@@ -11325,23 +11288,10 @@ onetime@^2.0.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-opencollective@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/opencollective/-/opencollective-1.0.3.tgz#aee6372bc28144583690c3ca8daecfc120dd0ef1"
-  dependencies:
-    babel-polyfill "6.23.0"
-    chalk "1.1.3"
-    inquirer "3.0.6"
-    minimist "1.2.0"
-    node-fetch "1.6.3"
-    opn "4.0.2"
-
-opn@4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/opn/-/opn-4.0.2.tgz#7abc22e644dff63b0a96d5ab7f2790c0f01abc95"
-  dependencies:
-    object-assign "^4.0.1"
-    pinkie-promise "^2.0.0"
+opencollective-postinstall@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.1.tgz#798e83e168f7b91949061c2683f762af747f17cc"
+  integrity sha512-saQQ9hjLwu/oS0492eyYotoh+bra1819cfAT5rjY/e4REWwuc8IgZ844Oo44SiftWcJuBiqp0SA0BFVbmLX0IQ==
 
 opn@5.2.0:
   version "5.2.0"
@@ -13120,15 +13070,15 @@ react-native-branch@2.2.5:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
   integrity sha1-QHTdY7SXPmOX2c5Q6XtXx3pRjp0=
 
-react-native-elements@1.0.0-beta5:
-  version "1.0.0-beta5"
-  resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.0.0-beta5.tgz#5445976c22bf5bc0a92b91ccb38dafacac966d2a"
+react-native-elements@1.0.0-beta7:
+  version "1.0.0-beta7"
+  resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.0.0-beta7.tgz#d732affc905079033a8b53343587f7c1dbc59834"
+  integrity sha512-w89YVfF7own1V3RgHDj6EAofk3mYdL9Z28OolxphFce2mv2k/peFEII7x0S6LyQ7rcT3QaxWDlyP7AS4d8duGg==
   dependencies:
-    lodash.isempty "^4.4.0"
+    lodash.merge "^4.6.1"
     lodash.times "^4.3.2"
-    opencollective "^1.0.3"
+    opencollective-postinstall "^2.0.0"
     prop-types "^15.5.8"
-    react-native-touchable-scale "2.0.0"
 
 react-native-gesture-handler@1.0.9:
   version "1.0.9"
@@ -13168,16 +13118,12 @@ react-native-svg@8.0.8:
     lodash "^4.16.6"
     pegjs "^0.10.0"
 
-react-native-touchable-scale@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-touchable-scale/-/react-native-touchable-scale-2.0.0.tgz#13a83a9423e46049cad3e3cc306eba2130883cb1"
+react-native-typescript-transformer@^1.2.11:
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/react-native-typescript-transformer/-/react-native-typescript-transformer-1.2.11.tgz#679398c27262cf941e5a5f3ea45cf7eea715d557"
+  integrity sha512-Kz/t1CQI4L2MrZQHI4fh5gkrPbNBaxim74QF0d02vg+4vlxHnn4iye8vI7WM9cWZdNUnN5IafrNn3ah5dWtElQ==
   dependencies:
-    prop-types "^15.6.0"
-
-react-native-typescript-transformer@^1.2.9:
-  version "1.2.10"
-  resolved "https://registry.yarnpkg.com/react-native-typescript-transformer/-/react-native-typescript-transformer-1.2.10.tgz#6f76c1449028cdeafa184b533301ecd547367ed1"
-  dependencies:
+    babel-traverse "^6.26.0"
     chalk "^2.4.0"
     find-root "^1.1.0"
     jju "^1.3.0"
@@ -13624,7 +13570,7 @@ regenerate@^1.2.1, regenerate@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.4.0.tgz#4a856ec4b56e4077c557589cae85e7a4c8869a11"
 
-regenerator-runtime@^0.10.0, regenerator-runtime@^0.10.5:
+regenerator-runtime@^0.10.5:
   version "0.10.5"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.10.5.tgz#336c3efc1220adcedda2c9fab67b5a7955a33658"
 
@@ -14009,10 +13955,6 @@ rx-lite-aggregates@^4.0.8:
 rx-lite@*, rx-lite@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
-
-rx@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
 rxjs@^6.1.0:
   version "6.2.2"
