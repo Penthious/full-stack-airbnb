@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf ./dist && npm run gen:types && tsc",
-    "codegen:generate": "apollo codegen:generate --queries=./src/**/*.tsx --schema=./schema.json --target=typescript --outputFlat=./src/generatedTypes.ts",
+    "codegen:generate": "apollo codegen:generate ./src/generatedTypes.ts -c=./apollo-config.js --queries=./src/**/*.tsx --target=typescript --outputFlat",
     "codegen": "apollo codegen:generate",
     "fresh": "rm -rf ./node_modules",
     "gen:types": "npm run schema:download && npm run codegen:generate",
@@ -23,7 +23,7 @@
     "@types/node": "^10.12.18",
     "@types/react": "^16.4.1",
     "@types/react-dom": "^16.0.6",
-    "apollo": "^1.7.0",
+    "apollo": "^2.1.8",
     "apollo-codegen": "^0.20.2",
     "rimraf": "^2.6.2",
     "tslint": "^5.12.0",
