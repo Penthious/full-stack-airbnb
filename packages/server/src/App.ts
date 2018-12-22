@@ -288,7 +288,9 @@ export default class App {
 
       this.setupSession();
 
-      this.setupMorgan();
+      if (this.graphqlServerConfig.$env !== "production") {
+        this.setupMorgan();
+      }
 
       this.setupRoutes();
 

@@ -19,8 +19,6 @@ export default class Logout {
   ) {
     const { userId } = session;
     if (userId && multi) {
-      console.log("test");
-
       await this.sessionService.removeAllUserSessions(userId, redis);
     } else if (userId && !multi) {
       await this.sessionService.removeSingleSession(request.sessionID!, redis);
