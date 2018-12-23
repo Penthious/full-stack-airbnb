@@ -202,7 +202,9 @@ let App = class App {
                 this.createServer();
                 this.setupRateLimit();
                 this.setupSession();
-                this.setupMorgan();
+                if (this.graphqlServerConfig.$env !== "production") {
+                    this.setupMorgan();
+                }
                 this.setupRoutes();
                 return this.server;
             }

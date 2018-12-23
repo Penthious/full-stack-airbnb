@@ -1,3 +1,4 @@
+import { Redis } from "ioredis";
 import { Singleton } from "typescript-ioc";
 
 import { User } from "../entity/User";
@@ -5,7 +6,6 @@ import {
   USER_SESSION_ID_PREFIX,
   REDIS_SESSION_PREFIX,
 } from "../utils/constants";
-import { Redis } from "ioredis";
 
 // const LOG_MODULE_NAME = "graphql-server.SessionService";
 

@@ -2,7 +2,6 @@ FROM node
 
 WORKDIR /airbnb
 
-COPY ./wait-for-conn.sh .
 COPY ./package.json .
 COPY ./packages/server/package.json ./packages/server/
 COPY ./packages/common/package.json ./packages/common/

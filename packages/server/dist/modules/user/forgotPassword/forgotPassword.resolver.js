@@ -21,16 +21,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typescript_ioc_1 = require("typescript-ioc");
+const Config_1 = require("../../../Config");
 const UserService_1 = require("../../../services/UserService");
+const constants_1 = require("../../../utils/constants");
 const createForgotPasswordLink_1 = require("../../../utils/createForgotPasswordLink");
 const errorMessages_1 = require("./errorMessages");
-const constants_1 = require("../../../utils/constants");
-const forgotPasswordLockAccount_1 = require("../../../utils/forgotPasswordLockAccount");
-const formatYupError_1 = require("../../../utils/formatYupError");
 const common_1 = require("@airbnb-clone/common");
+const formatYupError_1 = require("../../../utils/formatYupError");
+const sendEmail_1 = require("../../../utils/sendEmail");
 let ForgotPassword = class ForgotPassword {
-    constructor(userService) {
+    constructor(userService, config) {
         this.userService = userService;
+        this.config = config;
         this.resolvers = {
             Mutation: {
                 forgotPasswordUpdate: (_, args, context) => this._forgotPasswordUpdate(_, args, context),
@@ -67,8 +69,8 @@ let ForgotPassword = class ForgotPassword {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.userService.findOne({ email });
             if (user) {
-                yield forgotPasswordLockAccount_1.forgotPasswordLockAccount(user.id, redis);
-                yield createForgotPasswordLink_1.createForgotPasswordLink("", user.id, redis);
+                const url = yield createForgotPasswordLink_1.createForgotPasswordLink(this.config.$frontend_host, user.id, redis);
+                yield sendEmail_1.sendEmail(email, url);
                 return true;
             }
             return false;
@@ -78,6 +80,8 @@ let ForgotPassword = class ForgotPassword {
 ForgotPassword = __decorate([
     typescript_ioc_1.Singleton,
     __param(0, typescript_ioc_1.Inject),
-    __metadata("design:paramtypes", [UserService_1.default])
+    __param(1, typescript_ioc_1.Inject),
+    __metadata("design:paramtypes", [UserService_1.default,
+        Config_1.default])
 ], ForgotPassword);
 exports.default = ForgotPassword;
