@@ -7,7 +7,7 @@ import { createConfirmEmailLink } from "../../../utils/createConfirmEmailLink";
 import { duplicateEmail } from "./errorMessages";
 import { formatYupError } from "../../../utils/formatYupError";
 import { sendEmail } from "../../../utils/sendEmail";
-import { registerUserSchema } from '@airbnb-clone/common'
+import { registerUserSchema } from "@airbnb-clone/common";
 
 export default class Register {
   public resolvers: ResolverMap = {
@@ -16,7 +16,10 @@ export default class Register {
     },
   };
 
-  constructor(@Inject private userService: UserService, @Inject private config: Config) { }
+  constructor(
+    @Inject private userService: UserService,
+    @Inject private config: Config,
+  ) {}
 
   private async register(
     _: any,
@@ -51,7 +54,7 @@ export default class Register {
       password,
     });
 
-    if (this.config.$env !== 'test') {
+    if (this.config.$env !== "test") {
       await sendEmail(email, await createConfirmEmailLink(url, user.id, redis));
     }
     return null;

@@ -16,6 +16,7 @@ interface FormValues {
 
 interface Props {
   submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
+  handleModal: () => void;
 }
 
 export class RegisterView extends PureComponent<
@@ -74,6 +75,8 @@ export default withFormik<Props, FormValues>({
     const errors = await props.submit(values);
     if (errors) {
       setErrors(errors);
+    } else {
+      props.handleModal();
     }
   },
 })(RegisterView);

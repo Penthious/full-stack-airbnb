@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Form, Icon } from "antd";
 import { Link } from "react-router-dom";
+import { NormalizedErrorMap } from "@airbnb-clone/controller";
 import { PureComponent } from "react";
 import { withFormik, FormikProps, Field } from "formik";
 
 import { InputField } from "../../shared/InputField";
 import { SubmitButton } from "../../shared/SubmitButton";
-import { NormalizedErrorMap } from "@airbnb-clone/controller";
 
 interface FormValues {
   email: string;
@@ -14,6 +14,8 @@ interface FormValues {
 
 interface Props {
   submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
+  visible: boolean;
+  handleModal: () => void;
 }
 
 export class ForgotPasswordView extends PureComponent<
@@ -55,8 +57,14 @@ export default withFormik<Props, FormValues>({
   mapPropsToValues: () => ({ email: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
     const errors = await props.submit(values);
+    console.log("===========================");
+
+    console.log(props);
+
     if (errors) {
       setErrors(errors);
+    } else {
+      props.handleModal();
     }
   },
 })(ForgotPasswordView);

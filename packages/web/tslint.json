@@ -4,7 +4,6 @@
     "exclude": ["config/**/*.js", "node_modules/**/*.ts"]
   },
   "rules": {
-    "no-duplicate-imports": false,
-    "jsx-no-lambda": false
+    "no-duplicate-imports": false
   }
 }

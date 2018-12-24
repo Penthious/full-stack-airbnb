@@ -6,7 +6,10 @@ import { withFormik, FormikProps, Field } from "formik";
 
 import { InputField } from "../../shared/InputField";
 import { SubmitButton } from "../../shared/SubmitButton";
-import { NormalizedErrorMap } from "@airbnb-clone/controller";
+import {
+  NormalizedErrorMap,
+  ForgotPasswordUpdateVariables,
+} from "@airbnb-clone/controller";
 import { forgotPasswordSchema } from "@airbnb-clone/common";
 
 interface FormValues {
@@ -14,7 +17,11 @@ interface FormValues {
 }
 
 interface Props {
-  submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
+  resetKey: string;
+  submit: (
+    values: ForgotPasswordUpdateVariables,
+  ) => Promise<NormalizedErrorMap | null>;
+  onSuccess: () => void;
 }
 
 export class ChangePasswordView extends PureComponent<
@@ -57,9 +64,11 @@ export default withFormik<Props, FormValues>({
   validationSchema: forgotPasswordSchema,
   mapPropsToValues: () => ({ newPassword: "" }),
   handleSubmit: async (values, { props, setErrors }) => {
-    const errors = await props.submit(values);
+    const errors = await props.submit({ ...values, key: props.resetKey });
     if (errors) {
       setErrors(errors);
+    } else {
+      props.onSuccess();
     }
   },
 })(ChangePasswordView);

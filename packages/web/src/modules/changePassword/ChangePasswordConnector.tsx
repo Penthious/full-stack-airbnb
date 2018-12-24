@@ -8,17 +8,21 @@ import ChangePasswordView from "./view/ChangePasswordView";
 export class ChangePasswordConnector extends PureComponent<
   RouteComponentProps<{ key: string }>
 > {
+  onSuccess = () => this.props.history.push("/login");
   render() {
     const {
       match: {
         params: { key },
       },
     } = this.props;
+
     return (
       <ChangePasswordController>
         {({ submit }) => (
           <ChangePasswordView
-            submit={({ newPassword }) => submit({ newPassword, key })}
+            resetKey={key}
+            submit={submit}
+            onSuccess={this.onSuccess}
           />
         )}
       </ChangePasswordController>
