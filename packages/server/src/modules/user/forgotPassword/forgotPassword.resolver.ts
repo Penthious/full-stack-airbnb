@@ -33,24 +33,25 @@ export default class ForgotPassword {
   ) {
     try {
       await forgotPasswordSchema.validate(
-        { newPassword, key },
+        { newPassword },
         { abortEarly: false },
       );
     } catch (err) {
       return formatYupError(err);
     }
-    const userId = await redis.get(`${FORGOT_PASSWORD_PREFIX}${key}`);
+    const redisKey = `${FORGOT_PASSWORD_PREFIX}${key}`;
+    const userId = await redis.get(redisKey);
 
     if (!userId) {
       return [
         {
-          path: "key",
+          path: "newPassword",
           message: expiredKeyError,
         },
       ];
     }
 
-    await redis.del(`${FORGOT_PASSWORD_PREFIX}${key}`);
+    await redis.del(redisKey);
 
     await this.userService.update(userId, {
       password: newPassword,

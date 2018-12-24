@@ -43,21 +43,22 @@ let ForgotPassword = class ForgotPassword {
     _forgotPasswordUpdate(_, { newPassword, key }, { redis }) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield common_1.forgotPasswordSchema.validate({ newPassword, key }, { abortEarly: false });
+                yield common_1.forgotPasswordSchema.validate({ newPassword }, { abortEarly: false });
             }
             catch (err) {
                 return formatYupError_1.formatYupError(err);
             }
-            const userId = yield redis.get(`${constants_1.FORGOT_PASSWORD_PREFIX}${key}`);
+            const redisKey = `${constants_1.FORGOT_PASSWORD_PREFIX}${key}`;
+            const userId = yield redis.get(redisKey);
             if (!userId) {
                 return [
                     {
-                        path: "key",
+                        path: "newPassword",
                         message: errorMessages_1.expiredKeyError,
                     },
                 ];
             }
-            yield redis.del(`${constants_1.FORGOT_PASSWORD_PREFIX}${key}`);
+            yield redis.del(redisKey);
             yield this.userService.update(userId, {
                 password: newPassword,
                 accountLocked: false,

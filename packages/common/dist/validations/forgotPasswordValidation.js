@@ -8,6 +8,5 @@ exports.newPasswordKeyValidation = yup
     .required(forgotPasswordErrors_1.missingPasswordKeyError);
 exports.forgotPasswordSchema = yup.object().shape({
     newPassword: registerValidation_1.passwordValidation,
-    key: exports.newPasswordKeyValidation,
 });
 //# sourceMappingURL=forgotPasswordValidation.js.map

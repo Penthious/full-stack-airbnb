@@ -9,5 +9,4 @@ export const newPasswordKeyValidation = yup
 
 export const forgotPasswordSchema = yup.object().shape({
   newPassword: passwordValidation,
-  key: newPasswordKeyValidation,
 });

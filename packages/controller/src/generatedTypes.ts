@@ -2,6 +2,27 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: ForgotPasswordUpdate
+// ====================================================
+
+export interface ForgotPasswordUpdate_forgotPasswordUpdate {
+  path: string;
+  message: string;
+}
+
+export interface ForgotPasswordUpdate {
+  forgotPasswordUpdate: ForgotPasswordUpdate_forgotPasswordUpdate[] | null;
+}
+
+export interface ForgotPasswordUpdateVariables {
+  newPassword: string;
+  key: string;
+}
+
+/* tslint:disable */
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: SendForgotPasswordEmail
 // ====================================================
 
