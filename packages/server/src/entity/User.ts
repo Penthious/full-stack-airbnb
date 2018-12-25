@@ -29,7 +29,7 @@ export class User extends BaseEntity {
   @Column("text", { nullable: true })
   twitterId: string;
 
-  @OneToMany(() => Listing, listing => listing.owner)
+  @OneToMany(() => Listing, listing => listing.user)
   listings: Listing[];
 
   async hashPassword() {
