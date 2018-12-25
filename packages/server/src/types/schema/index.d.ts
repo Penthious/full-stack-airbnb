@@ -22,7 +22,23 @@ declare namespace GQL {
 
   interface IQuery {
     __typename: 'Query';
+    findListings: Array<IListing>;
     me: IUser | null;
+  }
+
+  interface IListing {
+    __typename: 'Listing';
+    id: string;
+    amenities: Array<string>;
+    beds: number;
+    category: string;
+    description: string;
+    guests: number;
+    latitude: number;
+    longitude: number;
+    name: string;
+    price: number;
+    pictureUrl: string;
   }
 
   interface IUser {

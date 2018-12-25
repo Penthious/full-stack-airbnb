@@ -16,6 +16,10 @@ export default class CreateListing {
     { input }: GQL.ICreateListingOnMutationArguments,
     { session }: Context,
   ) {
+    if (!session.userId) {
+      throw new Error("not authenticated");
+    }
+
     await Listing.create({
       ...input,
       pictureUrl: "",
