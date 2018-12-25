@@ -18,11 +18,12 @@ export default class Logout {
     { request, session, redis }: Context,
   ) {
     const { userId } = session;
-    if (userId && multi) {
-      await this.sessionService.removeAllUserSessions(userId, redis);
-    } else if (userId && !multi) {
+    if (multi) {
+      await this.sessionService.removeAllUserSessions(userId!, redis);
+    } else {
       await this.sessionService.removeSingleSession(request.sessionID!, redis);
     }
+
     return null;
   }
 }
