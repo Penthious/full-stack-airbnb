@@ -1,0 +1,15 @@
+input CreateListingInput {
+  amenities: [String!]!
+  beds: Int!
+  category: String!
+  description: String!
+  guests: Int!
+  latitude: Float!
+  longitude: Float!
+  name: String!
+  price: Float!
+}
+
+type Mutation {
+  createListing(input: CreateListingInput!): Boolean!
+}

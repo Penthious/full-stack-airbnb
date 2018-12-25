@@ -5,7 +5,7 @@ import { writeFile } from "fs";
 import { genSchema } from "../utils/genSchema";
 
 writeFile(
-  join(__dirname, "../types/schema.d.ts"),
+  join(__dirname, "../types/schema/index.d.ts"),
   generateNamespace("GQL", genSchema()),
   error => {
     console.log(error);

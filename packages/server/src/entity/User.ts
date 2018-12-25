@@ -5,8 +5,11 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from "typeorm";
 import { hash } from "bcryptjs";
+
+import { Listing } from "./Listing";
 
 @Entity("users")
 export class User extends BaseEntity {
@@ -25,6 +28,9 @@ export class User extends BaseEntity {
 
   @Column("text", { nullable: true })
   twitterId: string;
+
+  @OneToMany(() => Listing, listing => listing.owner)
+  listings: Listing[];
 
   async hashPassword() {
     this.password = await hash(this.password, 10);
