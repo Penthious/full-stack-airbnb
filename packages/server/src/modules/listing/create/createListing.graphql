@@ -1,3 +1,5 @@
+directive @isAuthenticated on FIELD | FIELD_DEFINITION
+
 input CreateListingInput {
   amenities: [String!]!
   beds: Int!
@@ -11,5 +13,5 @@ input CreateListingInput {
 }
 
 type Mutation {
-  createListing(input: CreateListingInput!): Boolean!
+  createListing(input: CreateListingInput!): Boolean! @isAuthenticated
 }

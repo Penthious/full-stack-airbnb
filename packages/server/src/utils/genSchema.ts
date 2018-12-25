@@ -3,6 +3,7 @@ import { Container } from "typescript-ioc";
 import { fileLoader, mergeResolvers, mergeTypes } from "merge-graphql-schemas";
 import { join } from "path";
 import { makeExecutableSchema } from "graphql-tools";
+import directiveResolvers from "./directiveResolvers";
 
 export const genSchema = () => {
   const pathToModules = join(__dirname, "../modules");
@@ -26,6 +27,7 @@ export const genSchema = () => {
         thisClass => Container.get(thisClass.default).resolvers,
       ),
     ),
+    directiveResolvers,
   });
 
   return schema;

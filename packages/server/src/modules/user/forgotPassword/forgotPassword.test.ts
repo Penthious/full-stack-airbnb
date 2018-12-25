@@ -78,7 +78,9 @@ describe("forgot password", () => {
       await client.forgotPasswordUpdate(this.user.email, this.key),
     ).toEqual({
       data: {
-        forgotPasswordUpdate: [{ path: "key", message: expiredKeyError }],
+        forgotPasswordUpdate: [
+          { path: "newPassword", message: expiredKeyError },
+        ],
       },
     });
   });

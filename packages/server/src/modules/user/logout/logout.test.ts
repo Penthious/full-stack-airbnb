@@ -39,12 +39,14 @@ describe("single session", () => {
     await client.login(email, password);
 
     const response = await client.me();
+
     expect(response.data.me).toBeTruthy();
 
     await client.logout(false /*multi*/);
 
     const response2 = await client.me();
-    expect(response2.data.me).toBeNull();
+
+    expect(response2.errors![0].message).toBe("not authenticated");
 
     // const response3 = await client2.me();
     // expect(response3.data.me).toBeTruthy();

@@ -1,3 +1,5 @@
+directive @isAuthenticated on FIELD | FIELD_DEFINITION
+
 type Mutation {
-  deleteListing(id: String!): Boolean!
+  deleteListing(id: String!): Boolean! @isAuthenticated
 }

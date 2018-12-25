@@ -21,8 +21,7 @@ describe("me", () => {
   test("Can not get user if not logged in", async () => {
     const response = await client.me();
 
-    expect(response.data.me).toBeNull();
-    expect(response.errors![0]).toHaveProperty("message");
+    expect(response.errors![0].message).toBe("not authenticated");
   });
 
   test("Can get current user", async () => {
