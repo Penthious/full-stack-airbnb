@@ -6,7 +6,7 @@ export const SubmitButton: React.SFC<
   FieldProps<any> & { disabled?: boolean; text?: string }
 > = ({
   field, // name, value, onChange, onBlur
-  form: { isSubmitting, isValid },
+  form: { isSubmitting, isValid, ...form },
   ...props
 }) => {
   return (
@@ -14,7 +14,7 @@ export const SubmitButton: React.SFC<
       <Button
         {...field}
         {...props}
-        disabled={(!isSubmitting && !isValid) || props.disabled}
+        disabled={!isValid || isSubmitting || props.disabled}
       >
         {props.text}
       </Button>

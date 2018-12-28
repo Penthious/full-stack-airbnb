@@ -1,21 +1,38 @@
 import * as React from "react";
 import { FieldProps } from "formik";
-import { Form, Input } from "antd";
+import { Form, Input, InputNumber } from "antd";
 
 export const InputField: React.SFC<
-  FieldProps<any> & { prefix?: React.ReactNode }
+  FieldProps<any> & {
+    prefix?: React.ReactNode;
+    useNumberComponent?: boolean;
+    label?: string;
+  }
 > = ({
-  field, // name, value, onChange, onBlur
-  form: { touched, errors }, // setXXX, handleXXX, dirty, isValid
+  field: { onChange, ...field }, // name, value, onChange, onBlur
+  form: { touched, errors, setFieldValue }, // setXXX, handleXXX, dirty, isValid
+  useNumberComponent,
+  label,
   ...props
 }) => {
   const errorCheck = touched[field.name] && errors[field.name];
+  const Comp = useNumberComponent ? (InputNumber as any) : Input;
+
   return (
     <Form.Item
       help={errorCheck}
-      validateStatus={errorCheck && "error" ? "success" : "error"}
+      label={label}
+      validateStatus={errorCheck ? "error" : undefined}
     >
-      <Input {...field} {...props} />
+      <Comp
+        {...field}
+        {...props}
+        onChange={
+          useNumberComponent
+            ? (newValue: number) => setFieldValue(field.name, newValue)
+            : onChange
+        }
+      />
     </Form.Item>
   );
 };
