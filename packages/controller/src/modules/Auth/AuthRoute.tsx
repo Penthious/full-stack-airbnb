@@ -16,7 +16,14 @@ export class Auth extends PureComponent<ChildProps<Props, MeQuery>> {
 
     if (!data.me || data.error) {
       // user not logged in
-      return <Redirect to="/login" />;
+      return (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: { next: routeProps.location.pathname },
+          }}
+        />
+      );
     }
 
     const Component = component as any;

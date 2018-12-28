@@ -16,6 +16,7 @@ interface FormValues {
 
 interface Props {
   submit: (values: FormValues) => Promise<NormalizedErrorMap | null>;
+  onFinish: () => void;
 }
 
 export class LoginView extends PureComponent<FormikProps<FormValues> & Props> {
@@ -73,5 +74,6 @@ export default withFormik<Props, FormValues>({
     if (errors) {
       setErrors(errors);
     }
+    props.onFinish();
   },
 })(LoginView);
