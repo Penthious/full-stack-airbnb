@@ -20,6 +20,9 @@ export class FindListingsConnector extends PureComponent<
             key={`${listing.id}-card`}
             hoverable={true}
             style={{ width: 240 }}
+            cover={
+              listing.pictureUrl && <img alt="venue" src={listing.pictureUrl} />
+            }
           >
             <Card.Meta title={listing.name} description="test2" />
           </Card>
