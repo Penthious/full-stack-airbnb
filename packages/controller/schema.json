@@ -742,6 +742,16 @@
             "defaultValue": null
           },
           {
+            "name": "picture",
+            "description": "",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Upload",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "price",
             "description": "",
             "type": {
@@ -756,6 +766,16 @@
             "defaultValue": null
           }
         ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Upload",
+        "description": "",
+        "fields": null,
+        "inputFields": null,
         "interfaces": null,
         "enumValues": null,
         "possibleTypes": null

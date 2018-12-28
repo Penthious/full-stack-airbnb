@@ -25,6 +25,7 @@ export default class CreateListing {
     } catch (err) {
       return formatYupError(err);
     }
+    console.log(picture);
 
     const pictureUrl = await this._processUpload(picture);
 
@@ -38,7 +39,14 @@ export default class CreateListing {
   }
 
   private async _processUpload(upload: any) {
-    const { stream } = await upload;
+    console.log("upload", typeof upload);
+    const awaitLoad = await upload;
+    console.log("await upload: ", awaitLoad);
+
+    const { createReadStream } = await upload;
+    const stream = createReadStream();
+    console.log("stream: ", stream);
+
     const { id } = await this._storeUpload({ stream });
 
     return id;
@@ -47,6 +55,8 @@ export default class CreateListing {
   private async _storeUpload({ stream }: any): Promise<any> {
     const id = v4();
     const path = `images/${id}`;
+
+    console.log(path);
 
     return new Promise((resolve, reject) =>
       stream

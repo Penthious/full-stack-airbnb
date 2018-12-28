@@ -7,6 +7,7 @@ import LoginConnector from "../modules/login/LoginConnector";
 import RegisterConnector from "../modules/register/RegisterConnector";
 import ChangePasswordConnector from "../modules/changePassword/ChangePasswordConnector";
 import CreateListingConnector from "../modules/listing/create/CreateListingConnector";
+import FindListingsConnector from "../modules/listing/find/FindListingsConnector";
 
 export const Routes = () => (
   <BrowserRouter>
@@ -22,6 +23,11 @@ export const Routes = () => (
         exact={true}
         path={"/change-password/:key"}
         component={ChangePasswordConnector}
+      />
+      <Route
+        exact={true}
+        path={"/listings"}
+        component={FindListingsConnector}
       />
       <AuthRoute
         exact={true}

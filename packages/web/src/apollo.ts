@@ -1,8 +1,8 @@
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import { ApolloLink } from "apollo-link";
+import { createUploadLink } from "apollo-upload-client";
 
 export const client = new ApolloClient({
   link: ApolloLink.from([
@@ -18,7 +18,7 @@ export const client = new ApolloClient({
         console.log(`[Network error]: ${networkError}`);
       }
     }),
-    new HttpLink({
+    createUploadLink({
       uri: process.env.REACT_APP_SERVER_URL,
       credentials: "include",
     }),

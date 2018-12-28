@@ -2,17 +2,20 @@ import * as React from "react";
 import { PureComponent } from "react";
 import { Form, Formik, Field, FormikActions } from "formik";
 import { Icon } from "antd";
-import { InputField } from "../../shared/InputField";
-import { SubmitButton } from "../../shared/SubmitButton";
 import {
   withCreateListing,
   WithCreateListingProps,
 } from "@airbnb-clone/controller";
+
 import { TagField } from "../../shared/TagField";
 import { createListingSchema } from "@airbnb-clone/common";
+import { DropzoneField } from "../../shared/DropzoneField";
+import { InputField } from "../../shared/InputField";
+import { SubmitButton } from "../../shared/SubmitButton";
 
 interface FormValues {
   name: string;
+  picture: File | null;
   category: string;
   description: string;
   price: number;
@@ -29,6 +32,8 @@ export class CreateListingConnector extends PureComponent<
     values: FormValues,
     { setSubmitting }: FormikActions<FormValues>,
   ) => {
+    console.log(values);
+
     await this.props.createListing(values);
     setSubmitting(false);
   };
@@ -36,6 +41,7 @@ export class CreateListingConnector extends PureComponent<
     return (
       <Formik<FormValues>
         initialValues={{
+          picture: null,
           name: "",
           category: "",
           description: "",
@@ -62,6 +68,16 @@ export class CreateListingConnector extends PureComponent<
                   ) as any
                 }
                 component={InputField}
+              />
+              <Field
+                name="picture"
+                label="Picture"
+                prefix={
+                  (
+                    <Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />
+                  ) as any
+                }
+                component={DropzoneField}
               />
               <Field
                 name="category"

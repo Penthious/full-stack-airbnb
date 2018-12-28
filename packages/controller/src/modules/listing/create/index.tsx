@@ -7,27 +7,29 @@ import {
 
 export const createListingMutation = gql`
   mutation CreateListingMutation(
-    $name: String!
+    $amenities: [String!]!
+    $beds: Int!
     $category: String!
     $description: String!
-    $beds: Int!
     $guests: Int!
-    $price: Float!
     $latitude: Float!
     $longitude: Float!
-    $amenities: [String!]!
+    $name: String!
+    $picture: Upload
+    $price: Float!
   ) {
     createListing(
       input: {
-        name: $name
+        amenities: $amenities
+        beds: $beds
         category: $category
         description: $description
-        price: $price
-        beds: $beds
         guests: $guests
         latitude: $latitude
         longitude: $longitude
-        amenities: $amenities
+        name: $name
+        picture: $picture
+        price: $price
       }
     )
   }
