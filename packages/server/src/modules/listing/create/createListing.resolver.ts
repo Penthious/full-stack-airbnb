@@ -3,6 +3,8 @@ import { ResolverMap, Context } from "../../../types/graphql-utils";
 import { Listing } from "../../../entity/Listing";
 import { createListingSchema } from "@airbnb-clone/common";
 import { formatYupError } from "../../../utils/formatYupError";
+import { v4 } from "uuid";
+import { createWriteStream } from "fs";
 
 @Singleton
 export default class CreateListing {
@@ -15,7 +17,7 @@ export default class CreateListing {
   // constructor(){};
   private async _createListing(
     _: any,
-    { input: { ...data } }: GQL.ICreateListingOnMutationArguments,
+    { input: { picture, ...data } }: GQL.ICreateListingOnMutationArguments,
     { session }: Context,
   ) {
     try {
@@ -24,12 +26,33 @@ export default class CreateListing {
       return formatYupError(err);
     }
 
+    const pictureUrl = await this._processUpload(picture);
+
     await Listing.create({
       ...data,
-      pictureUrl: "",
+      pictureUrl,
       userId: session.userId,
     }).save();
 
     return true;
+  }
+
+  private async _processUpload(upload: any) {
+    const { stream } = await upload;
+    const { id } = await this._storeUpload({ stream });
+
+    return id;
+  }
+
+  private async _storeUpload({ stream }: any): Promise<any> {
+    const id = v4();
+    const path = `images/${id}`;
+
+    return new Promise((resolve, reject) =>
+      stream
+        .pipe(createWriteStream(path))
+        .on("finish", () => resolve({ id, path }))
+        .on("error", reject),
+    );
   }
 }

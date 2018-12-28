@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "rimraf ./dist && tsc && copyfiles -u 1 src/**/*.graphql dist",
-    "gen-schema-types": "ts-node -r dotenv/config src/scripts/createTypes.ts",
+    "gen-schema-types": "cross-env NODE_ENV=develop ts-node -r dotenv/config src/scripts/createTypes.ts",
     "fresh": "rm -rf ./node_modules",
     "start": "cross-env NODE_ENV=develop nodemon --exec ts-node src/index.ts",
     "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles --verbose --forceExit"
