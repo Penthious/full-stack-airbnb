@@ -1,6 +1,8 @@
 import { Singleton } from "typescript-ioc";
 import { ResolverMap, Context } from "../../../types/graphql-utils";
 import { Listing } from "../../../entity/Listing";
+import { createListingSchema } from "@airbnb-clone/common";
+import { formatYupError } from "../../../utils/formatYupError";
 
 @Singleton
 export default class CreateListing {
@@ -16,6 +18,11 @@ export default class CreateListing {
     { input }: GQL.ICreateListingOnMutationArguments,
     { session }: Context,
   ) {
+    try {
+      await createListingSchema.validate(input, { abortEarly: false });
+    } catch (err) {
+      return formatYupError(err);
+    }
     await Listing.create({
       ...input,
       pictureUrl: "",
