@@ -6,3 +6,4 @@ tmp/
 temp/
 dump.rdb
 .env-*
+images

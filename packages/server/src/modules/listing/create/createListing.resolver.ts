@@ -1,8 +1,10 @@
-import { Singleton } from "typescript-ioc";
-import { ResolverMap, Context } from "../../../types/graphql-utils";
-import { Listing } from "../../../entity/Listing";
+import * as Cloudinary from "cloudinary";
+import { Context, ResolverMap } from "../../../types/graphql-utils";
+import Config from "../../../Config";
 import { createListingSchema } from "@airbnb-clone/common";
 import { formatYupError } from "../../../utils/formatYupError";
+import { Listing } from "../../../entity/Listing";
+import { Singleton, Inject } from "typescript-ioc";
 import { v4 } from "uuid";
 import { createWriteStream } from "fs";
 
@@ -14,7 +16,18 @@ export default class CreateListing {
         this._createListing(_, args, context),
     },
   };
-  // constructor(){};
+
+  private cloudinary: Cloudinary.Cloudinary;
+
+  constructor(@Inject private config: Config) {
+    this.cloudinary = Cloudinary as Cloudinary.Cloudinary;
+    this.cloudinary.config({
+      cloud_name: this.config.$cloudinary_name,
+      api_key: this.config.$cloudinary_key,
+      api_secret: this.config.$cloudinary_secret,
+    });
+  }
+
   private async _createListing(
     _: any,
     { input: { picture, ...data } }: GQL.ICreateListingOnMutationArguments,
@@ -26,8 +39,11 @@ export default class CreateListing {
       return formatYupError(err);
     }
     console.log(picture);
+    let pictureUrl = "";
 
-    const pictureUrl = await this._processUpload(picture);
+    if (picture) {
+      pictureUrl = await this._processUpload(picture, session.userId!);
+    }
 
     await Listing.create({
       ...data,
@@ -38,25 +54,25 @@ export default class CreateListing {
     return true;
   }
 
-  private async _processUpload(upload: any) {
-    console.log("upload", typeof upload);
-    const awaitLoad = await upload;
-    console.log("await upload: ", awaitLoad);
+  private async _processUpload(upload: any, userId: string) {
+    const { createReadStream, filename } = await upload;
 
-    const { createReadStream } = await upload;
     const stream = createReadStream();
-    console.log("stream: ", stream);
 
-    const { id } = await this._storeUpload({ stream });
+    const { path } = await this._storeUpload({ stream, filename });
 
-    return id;
+    const url = await this.cloudinary.v2.uploader.upload(
+      path,
+      { public_id: `airbnb-clone-dev/${userId}/${filename}` },
+      err => console.log("error: ", err),
+    );
+
+    return url.secure_url;
   }
 
-  private async _storeUpload({ stream }: any): Promise<any> {
+  private async _storeUpload({ stream, filename }: any): Promise<any> {
     const id = v4();
-    const path = `images/${id}`;
-
-    console.log(path);
+    const path = `images/${id}-${filename}`;
 
     return new Promise((resolve, reject) =>
       stream

@@ -30,6 +30,9 @@ export default class GraphqlServerConfig {
   private SPARKPOST_API_KEY: string;
   private TWITTER_CONSUMER_KEY: string;
   private TWITTER_CONSUMER_SECRET: string;
+  private CLOUDINARY_NAME: string;
+  private CLOUDINARY_KEY: string;
+  private CLOUDINARY_SECRET: string;
 
   constructor() {
     this.APP_VERSION = pjson.version;
@@ -134,7 +137,27 @@ export default class GraphqlServerConfig {
     this.TWITTER_CONSUMER_SECRET = process.env
       .TWITTER_CONSUMER_SECRET as string;
 
-    this.REDIS_PORT = process.env.REDIS_PORT ? parseInt(process.env.REDIS_PORT, 10) : undefined;
+    assert(
+      process.env.CLOUDINARY_NAME,
+      `No environmental variable with key "CLOUDINARY_NAME" is set."`,
+    );
+    this.CLOUDINARY_NAME = process.env.CLOUDINARY_NAME as string;
+
+    assert(
+      process.env.CLOUDINARY_KEY,
+      `No environmental variable with key "CLOUDINARY_KEY" is set."`,
+    );
+    this.CLOUDINARY_KEY = process.env.CLOUDINARY_KEY as string;
+
+    assert(
+      process.env.CLOUDINARY_SECRET,
+      `No environmental variable with key "CLOUDINARY_SECRET" is set."`,
+    );
+    this.CLOUDINARY_SECRET = process.env.CLOUDINARY_SECRET as string;
+
+    this.REDIS_PORT = process.env.REDIS_PORT
+      ? parseInt(process.env.REDIS_PORT, 10)
+      : undefined;
     this.REDIS_HOST = process.env.REDIS_HOST;
 
     // this.logger.logLevel = this.$log_level;
@@ -219,6 +242,18 @@ export default class GraphqlServerConfig {
 
   public get $twitter_consumer_secret(): string {
     return this.TWITTER_CONSUMER_SECRET;
+  }
+
+  public get $cloudinary_name(): string {
+    return this.CLOUDINARY_NAME;
+  }
+
+  public get $cloudinary_key(): string {
+    return this.CLOUDINARY_KEY
+  }
+
+  public get $cloudinary_secret(): string {
+    return this.CLOUDINARY_SECRET
   }
 
   public get $redis_port(): number | undefined {
