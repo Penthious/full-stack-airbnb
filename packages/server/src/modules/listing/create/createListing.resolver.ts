@@ -15,16 +15,17 @@ export default class CreateListing {
   // constructor(){};
   private async _createListing(
     _: any,
-    { input }: GQL.ICreateListingOnMutationArguments,
+    { input: { ...data } }: GQL.ICreateListingOnMutationArguments,
     { session }: Context,
   ) {
     try {
-      await createListingSchema.validate(input, { abortEarly: false });
+      await createListingSchema.validate(data, { abortEarly: false });
     } catch (err) {
       return formatYupError(err);
     }
+
     await Listing.create({
-      ...input,
+      ...data,
       pictureUrl: "",
       userId: session.userId,
     }).save();

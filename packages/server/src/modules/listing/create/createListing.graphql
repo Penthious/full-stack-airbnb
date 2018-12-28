@@ -1,5 +1,7 @@
 directive @isAuthenticated on FIELD | FIELD_DEFINITION
 
+scalar Upload
+
 input CreateListingInput {
   amenities: [String!]!
   beds: Int!
@@ -9,6 +11,7 @@ input CreateListingInput {
   latitude: Float!
   longitude: Float!
   name: String!
+  picture: Upload
   price: Float!
 }
 

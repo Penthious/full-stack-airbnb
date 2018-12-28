@@ -27,10 +27,10 @@ describe("Email link", () => {
       this.userId,
       app.redis,
     );
+
+    // @todo: refactor to make a fake fetch or something as it is depenedent upon the front
     const response = await fetch(url);
     await response.text();
-
-    // expect(text).toEqual("ok");
 
     const user = (await User.findOne({ where: { id: this.userId } })) as User;
     expect(user.confirmed).toBeTruthy();
