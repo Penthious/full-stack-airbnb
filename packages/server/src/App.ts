@@ -17,6 +17,7 @@ import { REDIS_SESSION_PREFIX } from "./utils/constants";
 import { twitterPassport } from "./routes/twitterOauth";
 import Logger from "./Logger";
 import { join } from "path";
+import { userLoader } from "./loaders/userLoader";
 
 @Singleton
 export default class App {
@@ -183,6 +184,7 @@ export default class App {
           redis: this.redis,
           session: request.session,
           url: `${request.protocol}://${request.get("host")}`,
+          userLoader: userLoader(),
         }),
       });
     } catch (error) {

@@ -1,4 +1,5 @@
 import { Redis } from "ioredis";
+import { userLoader } from "../loaders/userLoader";
 
 export type Resolver = (
   parent: any,
@@ -12,6 +13,7 @@ export interface Context {
   redis: Redis;
   url: string;
   session: Session;
+  userLoader: ReturnType<typeof userLoader>;
 }
 
 export type GraphQLMiddlewareFunc = (
