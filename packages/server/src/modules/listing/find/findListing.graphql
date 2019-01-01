@@ -10,6 +10,7 @@ type Listing {
   name: String!
   price: Float!
   pictureUrl: String!
+  owner: User!
 }
 
 type Query {

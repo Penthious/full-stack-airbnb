@@ -24,7 +24,7 @@ export class FindListingsConnector extends PureComponent<
               listing.pictureUrl && <img alt="venue" src={listing.pictureUrl} />
             }
           >
-            <Card.Meta title={listing.name} description="test2" />
+            <Card.Meta title={listing.name} description={listing.owner.email} />
           </Card>
         ))}
       </div>
