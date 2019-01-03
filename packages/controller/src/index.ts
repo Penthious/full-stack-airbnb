@@ -6,3 +6,4 @@ export * from "./modules/listing";
 export * from "./modules/Auth/AuthRoute";
 export * from "./modules/RegisterController";
 export * from "./types/NormalizedErrorMap";
+export * from "./modules/LogoutController";

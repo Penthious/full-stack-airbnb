@@ -8,6 +8,7 @@ import RegisterConnector from "../modules/register/RegisterConnector";
 import ChangePasswordConnector from "../modules/changePassword/ChangePasswordConnector";
 import CreateListingConnector from "../modules/listing/create/CreateListingConnector";
 import FindListingsConnector from "../modules/listing/find/FindListingsConnector";
+import Logout from "../modules/logout/Logout";
 
 export const Routes = () => (
   <BrowserRouter>
@@ -29,6 +30,7 @@ export const Routes = () => (
         path={"/listings"}
         component={FindListingsConnector}
       />
+      <Route path="/logout" component={Logout} />
       <AuthRoute
         exact={true}
         path={"/listings/create"}
